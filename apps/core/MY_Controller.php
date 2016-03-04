@@ -1,12 +1,14 @@
 <?php
 defined('BASEPATH') or die('No direct script access allowed');
-
 /**
- * FileName : MY_Controller.php
- * DateTime : UTF-8,21:47:53,2014-5-17
- * Author : Alex Liu<lxiangcn@gmail.com>
- * Description : 全局控制
- * Copyright (c) 2015 http://orzm.net All Rights Reserved.
+ *  abfcommon 全局控制
+ *
+ * @package MY_Controller
+ * @copyright Copyright (c) 2010 - 2016, Orzm.net
+ * @license http://opensource.org/licenses/GPL-3.0    GPL-3.0
+ * @link http://orzm.net
+ * @version 2016-03-22 20:15:41
+ * @author Alex Liu<lxiangcn@gmail.com>
  */
 
 /* load the MX_Controller class */
@@ -76,7 +78,9 @@ abstract class MY_Controller extends MX_Controller {
         // $this->config->set_item ( 'sess_time_to_update', 300 );
         // $this->config->set_item ( 'sess_regenerate_destroy', FALSE );
         // 加载用户模型
-        $this->load->model('model_users', 'users', TRUE);
+        $this->load->model('auth/model_admin', 'admin', TRUE);
+        $this->load->library('auth/admin_auth');
+        $this->load->library('auth/member_auth');
         // 获取全局配置
         $this->load->model('model_configs', 'configs', TRUE);
         $this->data['config'] = array();
@@ -209,13 +213,12 @@ abstract class Web_Controller extends MY_Controller {
     }
 
     public function before() {
-        if (!$this->user_auth->is_login()) {
+        if (!$this->member_auth->is_login()) {
             // redirect ( 'auth/weixinlogin?ref=' . urlencode (
             // $this->uri->uri_string () ) );
         }
         // 设置权限为 允许任何人可以访问
-        $this->load->library('auth/user_auth');
-        $this->user_auth->checkAccess(2, $this->class, $this->method);
+        $this->member_auth->checkAccess(2, $this->class, $this->method);
         // 设置不开启双模
         $this->template->is_mobile_switch = FALSE;
         // 判断伪静态
@@ -242,27 +245,27 @@ abstract class Admin_Controller extends MY_Controller {
         /**
          * 检查登陆
          */
-        if (!$this->user_auth->is_login()) {
-            if (!$this->user_auth->is_admin() && $this->user_auth->is_login()) {
+        if (!$this->admin_auth->is_login()) {
+            if (!$this->admin_auth->is_admin() && $this->admin_auth->is_login()) {
                 $this->session->set_flashdata('error', __("user_permission_is_not_correct"));
             }
-            redirect('auth/admin?ref=' . urlencode($this->uri->uri_string()));
+            redirect('auth/admin/login?ref=' . urlencode($this->uri->uri_string()));
         }
         // 设置不开启双模
         $this->template->is_mobile_switch = FALSE;
 
         // 设置权限为 拥有权限的人可以访问
-        $this->load->library('auth/user_auth');
-        if (!$this->user_auth->checkAccess(1, $this->class, $this->method)) {
-            $this->session->set_flashdata('error', $this->user_auth->errors());
+        if (!$this->admin_auth->checkAccess(1, $this->class, $this->method)) {
+            $this->session->set_flashdata('error', $this->admin_auth->errors());
             redirect($_SERVER['HTTP_REFERER']);
         }
 
         // 获取登录用户数据
-        $this->data['user_id']    = $this->session->userdata('user_id');
-        $this->data['username']   = $this->session->userdata('username');
-        $this->data['email']      = $this->session->userdata('email');
-        $this->data['last_login'] = $this->session->userdata('old_last_login');
+        $userdata                 = $this->admin_auth->get_userdata();
+        $this->data['user_id']    = $userdata['user_id'];
+        $this->data['username']   = $userdata['username'];
+        $this->data['email']      = $userdata['email'];
+        $this->data['last_login'] = $userdata['old_last_login'];
     }
 }
 
@@ -276,8 +279,7 @@ class Other_Controller extends MY_Controller {
     function __construct() {
         parent::__construct();
         // 设置权限为 允许任何人可以访问
-        $this->load->library('auth/user_auth');
-        $this->user_auth->checkAccess(2, $this->class, $this->method);
+        $this->member_auth->checkAccess(2, $this->class, $this->method);
         $this->data['globaltips'] = FALSE;
         // 设置不开启双模
         $this->template->is_mobile_switch = FALSE;

@@ -42,7 +42,7 @@ defined('BASEPATH') or die('No direct script access allowed');
  * - insert_string
  * - update
  *
- * @package CodeIgniter
+ * @package MY_Model
  * @subpackage Libraries
  * @category Libraries
  * @author Md Emran Hasan (phpfour@gmail.com)

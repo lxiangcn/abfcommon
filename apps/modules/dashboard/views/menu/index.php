@@ -1,7 +1,7 @@
 <!--导航栏-->
 <ol class="breadcrumb breadcrumb-no-padding">
 	<li>
-		<a href="<?php echo site_url("dashboard/welcome/index");?>">
+		<a href="<?php echo site_url("dashboard/welcome/index"); ?>">
 			<i class="dropdown-icon fa fa-home"></i>
 			&nbsp;&nbsp;管理首页
 		</a>
@@ -20,8 +20,7 @@
 		</ul>
 		<table class="table table-hover table-condensed">
 			<colgroup>
-				<col width='40' />
-				<col />
+				<col width='340' />
 				<col />
 				<col />
 				<col />
@@ -29,7 +28,6 @@
 			</colgroup>
 			<thead>
 				<tr>
-					<th>编号</th>
 					<th>菜单名称</th>
 					<th>Directory/Class</th>
 					<th>Method</th>
@@ -41,7 +39,6 @@
 			 	<?php if (count($info_list) > 0): ?>
             	<?php foreach ($info_list as $k => $v): ?>
 				<tr>
-					<td><?php echo $v->id; ?></td>
 					<td><?php echo $v->name; ?></td>
 					<td><?php echo $v->class; ?></td>
 					<td><?php echo $v->method; ?></td>
@@ -50,17 +47,17 @@
 					</td>
 					<td>
 						<div aria-label="Small button group" role="group" class="btn-group btn-group-sm">
-							<a href="<?php echo site_url('dashboard/menu/edit/' . $v->id ); ?>" class="btn btn-primary btn-sm">编辑</a>
-							<a rel="nofollow" data-method="delete" data-confirm="真的要删除吗？" class="btn btn-sm btn-danger" href="<?php echo site_url('dashboard/menu/delete/' . $v->id ); ?>">删除</a>
+							<a href="<?php echo site_url('dashboard/menu/edit/' . $v->id); ?>" class="btn btn-primary btn-sm">编辑</a>
+							<a rel="nofollow" data-method="delete" data-confirm="真的要删除吗？" class="btn btn-sm btn-danger" href="<?php echo site_url('dashboard/menu/delete/' . $v->id); ?>">删除</a>
 						</div>
 					</td>
 				</tr>
-					<?php endforeach; ?>
-	       			<?php else : ?>
+					<?php endforeach;?>
+	       			<?php else: ?>
 	            	<tr>
 					<td align="center" colspan="2">暂无记录</td>
 				</tr>
-       			<?php endif; ?>
+       			<?php endif;?>
 			</tbody>
 		</table>
 	</div>

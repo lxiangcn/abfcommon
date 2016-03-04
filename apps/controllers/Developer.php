@@ -2,12 +2,14 @@
 defined('BASEPATH') or die('No direct script access allowed');
 
 /**
- * FileName : Developer.php
- * DateTime : 2015年6月15日
+ * abfcommon
  *
- * Author : Alex Liu<lxiangcn@gmail.com>
- * Description :
- * Copyright (c) 2015 http://orzm.net All Rights Reserved.
+ * @package Developer
+ * @copyright Copyright (c) 2010-2016, Orzm.net
+ * @license http://opensource.org/licenses/GPL-3.0    GPL-3.0
+ * @link http://orzm.net
+ * @version 2016-03-26 21:33:08
+ * @author Alex Liu<lxiangcn@gmail.com>
  */
 class Developer extends MX_Controller {
 

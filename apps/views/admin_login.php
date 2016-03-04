@@ -5,7 +5,7 @@
 <meta charset='UTF-8'>
 <meta content='True' name='HandheldFriendly'>
 <meta content='width=device-width, initial-scale=1.0' name='viewport'>
-<title><?php echo $config['site_name']; ?> -- 管理员登陆</title>
+<title><?php echo empty($page_title) ? "管理员登录" : $page_title; ?> -- <?php echo $config['site_name']; ?></title>
 <base href="<?php echo base_url() ?>" />
 <link href="<?php echo theme_url('assets/css/bootstrap.min.css'); ?>" rel="stylesheet" type="text/css" />
 <link href="<?php echo theme_url('assets/css/todc-bootstrap.min.css'); ?>" rel="stylesheet" type="text/css" />

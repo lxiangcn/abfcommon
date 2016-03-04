@@ -1,13 +1,13 @@
 <!--导航栏-->
 <ol class="breadcrumb breadcrumb-no-padding">
 	<li>
-		<a href="<?php echo site_url("dashboard/welcome/index");?>">
+		<a href="<?php echo site_url("dashboard/welcome/index"); ?>">
 			<i class="dropdown-icon fa fa-home"></i>
 			&nbsp;&nbsp;管理首页
 		</a>
 	</li>
 	<li>
-		<a href="<?php echo site_url("dashboard/menu/index");?>">后台菜单管理</a>
+		<a href="<?php echo site_url("dashboard/menu/index"); ?>">后台菜单管理</a>
 	</li>
 	<li class="active">编辑菜单</li>
 </ol>
@@ -18,12 +18,12 @@
 		<h3 class="panel-title">
 			编辑菜单
 			<span class="small pull-right">
-				<a href="<?php echo site_url("dashboard/menu/index");?>">返回列表</a>
+				<a href="<?php echo site_url("dashboard/menu/index"); ?>">返回列表</a>
 			</span>
 		</h3>
 	</div>
 	<div class="panel-body">
-		<?php echo form_open(site_url('dashboard/menu/edit/' . $id),'id="validation-form" class="form-horizontal"'); ?>
+		<?php echo form_open(site_url('dashboard/menu/edit/' . $id), 'id="validation-form" class="form-horizontal"'); ?>
 		<div class="form-group">
 			<label for="name" class="col-md-2 control-label">菜单名称：</label>
 			<div class="col-md-8">
@@ -71,13 +71,13 @@
 			<div class="col-md-8">
 				<div class="radio">
 					<label>
-						<input class="px" type="radio" name="is_menu" id="is_menu_1" value="1" <?php if ($data->is_menu): ?> checked="checked" <?php endif; ?> />
+						<input class="px" type="radio" name="is_menu" id="is_menu_1" value="1" <?php if ($data->is_menu): ?> checked="checked" <?php endif;?> />
 						<span class="lbl">是</span>
 					</label>
 				</div>
 				<div class="radio">
 					<label>
-						<input class="px" type="radio" name="is_menu" id="is_menu_2" value="0" <?php if (!$data->is_menu): ?> checked="checked" <?php endif; ?> />
+						<input class="px" type="radio" name="is_menu" id="is_menu_2" value="0" <?php if (!$data->is_menu): ?> checked="checked" <?php endif;?> />
 						<span class="lbl">否</span>
 					</label>
 				</div>
@@ -89,13 +89,13 @@
 			<div class="col-md-8">
 				<div class="radio">
 					<label>
-						<input class="px" type="radio" name="published" id="published_1" value="1" <?php if ($data->published): ?> checked="checked" <?php endif; ?> />
+						<input class="px" type="radio" name="published" id="published_1" value="1" <?php if ($data->published): ?> checked="checked" <?php endif;?> />
 						<span class="lbl">显示</span>
 					</label>
 				</div>
 				<div class="radio">
 					<label>
-						<input class="px" type="radio" name="published" id="published_2" value="0" <?php if (!$data->published): ?> checked="checked" <?php endif; ?> />
+						<input class="px" type="radio" name="published" id="published_2" value="0" <?php if (!$data->published): ?> checked="checked" <?php endif;?> />
 						<span class="lbl">隐藏</span>
 					</label>
 				</div>
@@ -112,10 +112,6 @@
 </div>
 <!--内容-->
 <script type="text/javascript">
-jQuery.validator.addMethod("isEnCode", function(value, element) {   
-    var tel = /^[A-Za-z]+$/;
-    return tel.test(value);
-}, "只允许输入英文字符");
 $("#validation-form").validate({
 	focusInvalid: false,
 	rules: {
@@ -139,7 +135,7 @@ $("#validation-form").validate({
 	messages: {
 		'name': '不为空，长度为2-20个字符!',
 		'class':'最大长度为20个字符',
-		'method':{maxlength:'最大长度为10个字符',isEnCode:"只允许输入英文字符"}
+		'method':'最大长度为10个字符'
 	}
 });
 </script>

@@ -7,7 +7,7 @@
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-<title><?php echo $config['site_name']; ?> -- 网站后台管理</title>
+<title><?php echo empty($page_title) ? "系统后台管理" : $page_title; ?> -- <?php echo $config['site_name']; ?></title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
 <!-- Pixel Admin's stylesheets -->
 <link href="<?php echo theme_url('pixel/stylesheets/bootstrap.min.css'); ?>" rel="stylesheet" type="text/css">
@@ -55,7 +55,7 @@
 							<li>
 								<a target="_blank" href="/">网站首页</a>
 							</li>
-							<!--  
+							<!--
 						<li class="dropdown">
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown</a>
 							<ul class="dropdown-menu">
@@ -189,7 +189,7 @@
 										</li>
 										<li class="divider"></li>
 										<li>
-											<a href="<?php echo site_url('auth/logout'); ?>">
+											<a href="<?php echo site_url('auth/admin/logout'); ?>">
 												<i class="dropdown-icon fa fa-power-off"></i>
 												&nbsp;&nbsp;退出
 											</a>
@@ -215,8 +215,8 @@
 			</ul>
 				<!-- / .navigation -->
 				<div class="menu-content animated fadeIn">
-					<p>© <?php echo date("Y", time()) ; ?><?php if($sys_env!='production'):?> <span style='color: #5cb85c; font-weight: bold;'>(<i class="fa fa-leaf"></i><?php echo $sys_env; ?> )</span> <?php endif;?></p>
-					<p><?php $pos = strpos(@$_SERVER['HTTP_ACCEPT_ENCODING'], 'gzip'); ?>网页执行信息：{elapsed_time} Second ,内存消耗：{memory_usage},<?php echo count($this->db->queries); ?> queries<?php if ($pos) : ?>,&nbsp;Gzip Enable.<?php endif;?></p>
+					<p>© <?php echo date("Y", time()); ?><?php if ($sys_env != 'production'): ?> <span style='color: #5cb85c; font-weight: bold;'>(<i class="fa fa-leaf"></i><?php echo $sys_env; ?> )</span> <?php endif;?></p>
+					<p><?php $pos = strpos(@$_SERVER['HTTP_ACCEPT_ENCODING'], 'gzip');?>网页执行信息：{elapsed_time} Second ,内存消耗：{memory_usage},<?php echo count($this->db->queries); ?> queries<?php if ($pos): ?>,&nbsp;Gzip Enable.<?php endif;?></p>
 				</div>
 			</div>
 			<!-- / #main-menu-inner -->
@@ -227,28 +227,28 @@
 		<?php if ($this->session->flashdata('success') != FALSE): ?>
 		<div class="alert alert-success alert-page">
 				<button type="button" class="close" data-dismiss="alert">&times;</button>
-			<?php echo $this->session->flashdata('success');?>
+			<?php echo $this->session->flashdata('success'); ?>
 		</div>
-		<?php endif; ?>
+		<?php endif;?>
 		<?php if ($this->session->flashdata('error') != FALSE): ?>
 		<div class="alert alert-danger alert-page">
 				<button type="button" class="close" data-dismiss="alert">&times;</button>
-			<?php echo $this->session->flashdata('error');?>
+			<?php echo $this->session->flashdata('error'); ?>
 		</div>
-		<?php endif; ?>
+		<?php endif;?>
 		<?php if ($this->session->flashdata('notice') != FALSE): ?>
 		<div class="alert alert-warning alert-page">
 				<button type="button" class="close" data-dismiss="alert">&times;</button>
-			<?php echo $this->session->flashdata('notice');?>
+			<?php echo $this->session->flashdata('notice'); ?>
 		</div>
-		<?php endif; ?>
+		<?php endif;?>
 		<?php if (validation_errors() != FALSE): ?>
 		<div class="alert alert-danger alert-page main-menu-fixed">
 				<button type="button" class="close" data-dismiss="alert">&times;</button>
-			<?php echo validation_errors('<p class="error">', '</p>');?>
+			<?php echo validation_errors('<p class="error">', '</p>'); ?>
 		</div>
-		<?php endif; ?>
-		<?php echo $body;?>
+		<?php endif;?>
+		<?php echo $body; ?>
 	</div>
 		<!-- / #content-wrapper -->
 		<div id="main-menu-bg"></div>
@@ -259,7 +259,7 @@
 	<script type="text/javascript">
 	init.push(function () {
 		$("select").select2({ placeholder: '请选择...'});
-		var vclass="<?php echo $css_class;?>";
+		var vclass="<?php echo $css_class; ?>";
 		if($("a[data-class='"+vclass+"']").parent().parent().parent().length > 0){
 			$("a[data-class='"+vclass+"']").parent().parent().parent().addClass('open');
 		}

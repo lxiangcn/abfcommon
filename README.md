@@ -29,4 +29,4 @@
 └vendor   //目录,提供给composer工具进行模块可拆卸配置(类似于java里面的ant/maven等构建工具)
 ```
 
-#test
+#testing

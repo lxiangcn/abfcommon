@@ -1,0 +1,20 @@
+<?php 
+
+if (!defined('BASEPATH')) exit('No direct script access allowed');
+
+/**
+ * FileName : Model_{{modulename}}.php
+ * DateTime : {{now}}
+ *
+ * Author : Alex Liu<lxiangcn@gmail.com>
+ * Description : 
+ * Copyright (c) 2015 http://orzm.net All Rights Reserved.
+ */
+class Model_{{modulename}} extends MY_Model{
+
+	function __construct() {
+		parent::__construct ();
+		$this->load_table ( '{{modulename}}' );
+	}
+}
+?>

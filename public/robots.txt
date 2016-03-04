@@ -1,0 +1,11 @@
+#
+# Huiber Co.,Ltd , All Rights Reserved
+# Robots.txt for v1.0
+#
+
+User-agent: *
+Disallow: /admin/
+Disallow: /application/
+Disallow: /theme/
+Disallow: /system/
+Disallow: /data/

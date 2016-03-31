@@ -53,24 +53,19 @@
  *
  * NOTE: If you change these, also change the error_reporting() code below
  */
-if ($_SERVER['SERVER_NAME'] == 'localhost') {
-    define('ENVIRONMENT', 'development');
-} else {
-    define('ENVIRONMENT', 'production');
-}
-/*
-switch (strtolower(gethostname())){
+
+switch (strtolower(gethostname())) {
 case 'i-nxqx1cvw':
-define('ENVIRONMENT', 'production');
-break;
+    define('ENVIRONMENT', 'production');
+    break;
 case 'i-n9etv7ms':
-case 'geex':
-define('ENVIRONMENT', 'testing');
-break;
+case 'desktop-ult2t2u':
+    define('ENVIRONMENT', 'testing');
+    break;
 default:
-define('ENVIRONMENT', 'development');
-break;
-}*/
+    define('ENVIRONMENT', 'development');
+    break;
+}
 
 /*
  * ---------------------------------------------------------------

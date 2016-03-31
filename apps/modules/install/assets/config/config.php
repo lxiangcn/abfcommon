@@ -1,4 +1,6 @@
-<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+<?php if (!defined('BASEPATH')) {
+    exit('No direct script access allowed');
+}
 
 /*
 |--------------------------------------------------------------------------
@@ -13,32 +15,32 @@
 | If this is not set then CodeIgniter will guess the protocol, domain and
 | path to your installation.
 |
-*/
+ */
 $config['base_url'] = BASE_URL;
 
 /*
- |--------------------------------------------------------------------------
- | Installed
- |--------------------------------------------------------------------------
- |
- | Used to determine if CMS needs to be installed
- |
+|--------------------------------------------------------------------------
+| Installed
+|--------------------------------------------------------------------------
+|
+| Used to determine if CMS needs to be installed
+|
  */
 $config['installed'] = TRUE;
 
 /*
- |--------------------------------------------------------------------------
- | Admin URL
- |--------------------------------------------------------------------------
- |
- | URL to your CodeIgniter root. Typically this will be your admin URL,
- | WITH a trailing slash:
- |
- |   http://example.com/admin
- |
- | If this is not set then CodeIgniter will guess the protocol, domain and
- | path to your installation.
- |
+|--------------------------------------------------------------------------
+| Admin URL
+|--------------------------------------------------------------------------
+|
+| URL to your CodeIgniter root. Typically this will be your admin URL,
+| WITH a trailing slash:
+|
+|   http://example.com/admin
+|
+| If this is not set then CodeIgniter will guess the protocol, domain and
+| path to your installation.
+|
  */
 $config['admin_folder'] = '__site_url__';
 
@@ -51,7 +53,7 @@ $config['admin_folder'] = '__site_url__';
 | something else. If you are using mod_rewrite to remove the page set this
 | variable so that it is blank.
 |
-*/
+ */
 $config['index_page'] = '__INDEX_PAGE__';
 
 /*
@@ -69,7 +71,7 @@ $config['index_page'] = '__INDEX_PAGE__';
 | 'REQUEST_URI'     Uses the REQUEST_URI
 | 'ORIG_PATH_INFO'  Uses the ORIG_PATH_INFO
 |
-*/
+ */
 $config['uri_protocol'] = 'AUTO';
 
 /*
@@ -81,7 +83,7 @@ $config['uri_protocol'] = 'AUTO';
 | For more information please see the user guide:
 |
 | http://codeigniter.com/user_guide/general/urls.html
-*/
+ */
 
 $config['url_suffix'] = '.html';
 
@@ -94,7 +96,7 @@ $config['url_suffix'] = '.html';
 | there is an available translation if you intend to use something other
 | than english.
 |
-*/
+ */
 $config['language'] = 'zh_CN';
 
 /*
@@ -105,7 +107,7 @@ $config['language'] = 'zh_CN';
 | This determines which character set is used by default in various methods
 | that require a character set to be provided.
 |
-*/
+ */
 $config['charset'] = 'UTF-8';
 
 /*
@@ -116,9 +118,8 @@ $config['charset'] = 'UTF-8';
 | If you would like to use the 'hooks' feature you must enable it by
 | setting this variable to TRUE (boolean).  See the user guide for details.
 |
-*/
+ */
 $config['enable_hooks'] = TRUE;
-
 
 /*
 |--------------------------------------------------------------------------
@@ -131,9 +132,8 @@ $config['enable_hooks'] = TRUE;
 | http://codeigniter.com/user_guide/general/core_classes.html
 | http://codeigniter.com/user_guide/general/creating_libraries.html
 |
-*/
+ */
 $config['subclass_prefix'] = 'MY_';
-
 
 /*
 |--------------------------------------------------------------------------
@@ -151,9 +151,8 @@ $config['subclass_prefix'] = 'MY_';
 |
 | DO NOT CHANGE THIS UNLESS YOU FULLY UNDERSTAND THE REPERCUSSIONS!!
 |
-*/
+ */
 $config['permitted_uri_chars'] = 'a-z 0-9~%.:_\-';
-
 
 /*
 |--------------------------------------------------------------------------
@@ -179,7 +178,7 @@ $config['permitted_uri_chars'] = 'a-z 0-9~%.:_\-';
 | this feature is enabled, since CodeIgniter is designed primarily to
 | use segment based URLs.
 |
-*/
+ */
 $config['allow_get_array']      = TRUE;
 $config['enable_query_strings'] = FALSE;
 $config['controller_trigger']   = 'c';
@@ -205,7 +204,7 @@ $config['directory_trigger']    = 'd'; // experimental not currently in use
 | For a live site you'll usually only enable Errors (1) to be logged otherwise
 | your log files will fill up very fast.
 |
-*/
+ */
 $config['log_threshold'] = 1;
 
 /*
@@ -216,7 +215,7 @@ $config['log_threshold'] = 1;
 | Leave this BLANK unless you would like to set something other than the default
 | application/logs/ folder. Use a full server path with trailing slash.
 |
-*/
+ */
 $config['log_path'] = 'data/logs/';
 
 /*
@@ -227,7 +226,7 @@ $config['log_path'] = 'data/logs/';
 | Each item that is logged has an associated date. You can use PHP date
 | codes to set your own date formatting
 |
-*/
+ */
 $config['log_date_format'] = 'Y-m-d H:i:s';
 
 /*
@@ -238,7 +237,7 @@ $config['log_date_format'] = 'Y-m-d H:i:s';
 | Leave this BLANK unless you would like to set something other than the default
 | system/cache/ folder.  Use a full server path with trailing slash.
 |
-*/
+ */
 $config['cache_path'] = 'data/cache/';
 
 /*
@@ -249,7 +248,7 @@ $config['cache_path'] = 'data/cache/';
 | If you use the Encryption class or the Session class you
 | MUST set an encryption key.  See the user guide for info.
 |
-*/
+ */
 $config['encryption_key'] = '__ENCRYPTION_KEY__';
 
 /*
@@ -269,7 +268,7 @@ $config['encryption_key'] = '__ENCRYPTION_KEY__';
 | 'sess_match_useragent'    = Whether to match the User Agent when reading the session data
 | 'sess_time_to_update'     = how many seconds between CI refreshing Session Information
 |
-*/
+ */
 $config['sess_cookie_name']     = 'ci_session';
 $config['sess_expiration']      = 7200;
 $config['sess_expire_on_close'] = FALSE;
@@ -290,11 +289,11 @@ $config['sess_time_to_update']  = 300;
 | 'cookie_path'   =  Typically will be a forward slash
 | 'cookie_secure' =  Cookies will only be set if a secure HTTPS connection exists.
 |
-*/
-$config['cookie_prefix']    = "";
-$config['cookie_domain']    = "";
-$config['cookie_path']      = "/";
-$config['cookie_secure']    = FALSE;
+ */
+$config['cookie_prefix'] = "";
+$config['cookie_domain'] = "";
+$config['cookie_path']   = "/";
+$config['cookie_secure'] = FALSE;
 
 /*
 |--------------------------------------------------------------------------
@@ -304,7 +303,7 @@ $config['cookie_secure']    = FALSE;
 | Determines whether the XSS filter is always active when GET, POST or
 | COOKIE data is encountered
 |
-*/
+ */
 $config['global_xss_filtering'] = FALSE;
 
 /*
@@ -318,11 +317,11 @@ $config['global_xss_filtering'] = FALSE;
 | 'csrf_token_name' = The token name
 | 'csrf_cookie_name' = The cookie name
 | 'csrf_expire' = The number in seconds the token should expire.
-*/
-$config['csrf_protection'] = TRUE;
-$config['csrf_token_name'] = 'huiber_csrf_token';
-$config['csrf_cookie_name'] = 'huiber_csrf_cookie';
-$config['csrf_expire'] = 7200;
+ */
+$config['csrf_protection']  = TRUE;
+$config['csrf_token_name']  = 'protection_key';
+$config['csrf_cookie_name'] = 'protection_key';
+$config['csrf_expire']      = 7200;
 
 /*
 |--------------------------------------------------------------------------
@@ -340,7 +339,7 @@ $config['csrf_expire'] = 7200;
 | compression to work, nothing can be sent before the output buffer is called
 | by the output class.  Do not 'echo' any values with compression enabled.
 |
-*/
+ */
 $config['compress_output'] = FALSE;
 
 /*
@@ -353,9 +352,8 @@ $config['compress_output'] = FALSE;
 | GMT.  See the 'date helper' page of the user guide for information
 | regarding date handling.
 |
-*/
+ */
 $config['time_reference'] = 'local';
-
 
 /*
 |--------------------------------------------------------------------------
@@ -366,9 +364,8 @@ $config['time_reference'] = 'local';
 | can rewrite the tags on-the-fly, enabling you to utilize that syntax
 | in your view files.  Options are TRUE or FALSE (boolean)
 |
-*/
+ */
 $config['rewrite_short_tags'] = FALSE;
-
 
 /*
 |--------------------------------------------------------------------------
@@ -380,9 +377,8 @@ $config['rewrite_short_tags'] = FALSE;
 | header in order to properly identify the visitor's IP address.
 | Comma-delimited, e.g. '10.0.1.200,10.0.1.201'
 |
-*/
+ */
 $config['proxy_ips'] = '';
-
 
 /* End of file config.php */
 /* Location: ./application/config/config.php */

@@ -8,7 +8,7 @@ defined('BASEPATH') or die('No direct script access allowed');
  * @copyright Copyright (c) 2010-2016, Orzm.net
  * @license http://opensource.org/licenses/GPL-3.0    GPL-3.0
  * @link http://orzm.net
- * @version 2016-03-26 21:33:08
+ * @version 2016-03-30 15:47:51
  * @author Alex Liu<lxiangcn@gmail.com>
  */
 class Developer extends MX_Controller {

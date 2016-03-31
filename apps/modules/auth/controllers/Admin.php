@@ -70,10 +70,9 @@ class Admin extends Admin_Controller {
                 }
             }
         }
-        $data['active']     = 1;
-        $data['gender']     = 'male';
-        $data['csrf_name']  = $this->security->get_csrf_token_name();
-        $data['csrf_token'] = $this->security->get_csrf_hash();
+        $data['active'] = 1;
+        $data['gender'] = 'male';
+
         $this->output("admin_layout", array("body" => "admin/add"), $data);
     }
 
@@ -142,9 +141,7 @@ class Admin extends Admin_Controller {
                 }
             }
         }
-        $data['data']       = $obj;
-        $data['csrf_name']  = $this->security->get_csrf_token_name();
-        $data['csrf_token'] = $this->security->get_csrf_hash();
+        $data['data'] = $obj;
         $this->output("admin_layout", array("body" => "admin/edit"), $data);
     }
 
@@ -282,9 +279,7 @@ class Admin extends Admin_Controller {
                 }
             }
         }
-        $data['data']       = $obj;
-        $data['csrf_name']  = $this->security->get_csrf_token_name();
-        $data['csrf_token'] = $this->security->get_csrf_hash();
+        $data['data'] = $obj;
         $this->output("admin_layout", array("body" => "admin/audit"), $data);
     }
 }

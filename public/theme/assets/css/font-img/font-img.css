@@ -1,0 +1,53 @@
+/**#.定义字体,通过字体输出icon图标*/
+@font-face{
+	font-family:ZenIcon;
+	src:url('fonts/zenicon.eot?v=1.0.0');
+	src:url('fonts/zenicon.eot?#iefix&v=1.0.0') format('embedded-opentype'),
+		url('fonts/zenicon.woff?v=1.0.0') format('woff'),
+		url('fonts/zenicon.ttf?v=1.0.0') format('truetype'),
+		url('fonts/zenicon.svg#regular?v=1.0.0') format('svg');
+	font-weight:normal;font-style:normal
+	/**存在图标的域为:\e600-\e770 (16进制)*/
+}
+i[class^="icon-"]{
+	font-family: ZenIcon; font-style: normal;
+    font-variant: normal; font-weight: normal;
+    line-height: 1; text-transform: none;
+    font-size:18px; color:#003366; 
+}
+i.icon-home:after{ content:"\e615"; }
+i.icon-user:after{ content:"\e608"; font-size:14px; }
+i.icon-add:after{ content:"\e650";}
+i.icon-edit:after{ content:"\e63c"; }
+i.icon-del:after{ content:"\e652"; }
+i.icon-list:after{ content:"\e6ae"; }
+i.icon-move:after{ content:"\e696"; }
+i.icon-msg:after{ content:"\e625"; }
+
+i.icon-expand:after{ content:"\e6bb"; }
+i.icon-unexpand:after{ content:"\e6ba"; }
+
+i.icon-note:after{ content:"\e640"; }
+i.icon-cloud-up:after{ content:"\e6cd"; }
+i.icon-query:after{ content:"\e603"; }
+a.active i.icon-note{ color:white; }
+a.active i.icon-cloud-up{ color:white; }
+a.active i.icon-query{ color:white; }
+
+i.icon-ok:after{ content:"\e653"; }
+i.icon-warn:after{ content:"\e664"; }
+i.icon-error:after{ content:"\e652"; }
+
+i.icon-apply:after{ content:"\e653"; }
+i.icon-audit:after{ content:"\e61d"; }
+i.icon-amsg:after{ content:"\e750"; }
+i.icon-aright:after{ content:"\e739"; }
+
+i.icon-queryI:after{ content:"\e603"; }
+i.icon-queryR:after{ content:"\e74f"; }
+
+i.icon-loadScan:after{ content:"\e69c"; color:#0054A8; }
+i.icon-loadLocal:after{ content:"\e650"; color:#0054A8; }
+i.icon-loadRemove:after{ content:"\e652"; color:#cc0000; }
+
+i.icon-downloadzip:after{ content:"\e6cc"; }

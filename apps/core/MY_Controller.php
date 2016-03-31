@@ -7,35 +7,14 @@ defined('BASEPATH') or die('No direct script access allowed');
  * @copyright Copyright (c) 2010 - 2016, Orzm.net
  * @license http://opensource.org/licenses/GPL-3.0    GPL-3.0
  * @link http://orzm.net
- * @version 2016-03-22 20:15:41
+ * @version 2016-03-31 11:04:16
  * @author Alex Liu<lxiangcn@gmail.com>
  */
 
-/* load the MX_Controller class */
-require APPPATH . "third_party/MX/Controller.php";
+/* load the Base_Controller class */
+//require APPPATH . "core/Base_Controller.php";
 
-abstract class MY_Controller extends MX_Controller {
-
-    /**
-     * 返回消息类型 参数有 'error', 'notice', 'success'
-     *
-     * @var string
-     */
-    public $message_type = '';
-
-    /**
-     * 返回消息内容
-     *
-     * @var string
-     */
-    public $message = '';
-
-    /**
-     * 返回URL
-     *
-     * @var string
-     */
-    public $redirect = '';
+abstract class MY_Controller extends Base_Controller {
 
     /**
      * 全局数据
@@ -118,70 +97,15 @@ abstract class MY_Controller extends MX_Controller {
         $this->data['css_class'] = $this->class;
 
         $this->data['sys_env'] = ENVIRONMENT;
+
+        //security
+        $this->data['csrf_name']  = $this->security->get_csrf_token_name();
+        $this->data['csrf_token'] = $this->security->get_csrf_hash();
+        set_cookie($this->data['csrf_name'], $this->data['csrf_token'], 86500);
+
         // Profiler
         $this->output->enable_profiler(FALSE);
         log_message('debug', "MY_Controller Controller Class Initialized");
-    }
-
-    /**
-     * 设置返回错误信息
-     *
-     * @param string
-     * @param array
-     */
-    public function error($message, $addon_data = NULL) {
-        $this->message_type = 'error';
-        $this->message      = $message;
-
-        if (!isset($this->redirect) && !empty($_SERVER['HTTP_REFERER'])) {
-            $this->redirect = $_SERVER['HTTP_REFERER'];
-        }
-
-        $this->response($addon_data);
-    }
-
-    /**
-     * 设置返回成功信息
-     *
-     * @param string
-     * @param array
-     */
-    public function success($message, $addon_data = NULL) {
-        $this->message_type = 'success';
-        $this->message      = $message;
-
-        $this->response($addon_data);
-    }
-
-    /**
-     * 设置返回通知信息
-     *
-     * @param string
-     * @param array
-     */
-    public function notice($message, $addon_data = NULL) {
-        $this->message_type = 'notice';
-        $this->message      = $message;
-
-        $this->response($addon_data);
-    }
-
-    /**
-     * 设置返回的提示信息
-     *
-     * @param array
-     */
-    public function response($addon_data = NULL) {
-        $data = array(
-            'message_type' => $this->message_type,
-            'message'      => $this->message,
-        );
-
-        if (!empty($addon_data)) {
-            $data = array_merge($data, $addon_data);
-        }
-
-        $this->session->set_flashdata($this->message_type, ($this->message));
     }
 
     /**

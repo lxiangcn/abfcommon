@@ -1,0 +1,129 @@
+/**3.1遮挡层*/
+
+div.divMask {
+    background-color: #CCCCCC;
+    opacity: 0.5;
+    /*IE7/8不支持透明度属性,需要使用filter*/
+    filter: Alpha(Opacity=50);
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    width: 100%;
+    height: 100%;
+    /**属性值使用时调用为实际的body高度*/
+    z-index: 100;
+}
+
+
+/**3.2弹出层*/
+
+div.divAlert {
+    position: absolute;
+    border: 1px solid #6593CF;
+    width: 380px;
+    top: 0;
+    left: 0;
+    /**属性值通过界面居中定位*/
+    display: none;
+}
+
+div.divAlert div.winTitle {
+    background: #9DACBF;
+    height: 32px;
+    line-height: 32px;
+}
+
+div.divAlert div.winTitle span.title {
+    font-weight: bold;
+    color: #FFF;
+    padding-left: 8px;
+    font-size: 12px;
+}
+
+div.divAlert div.winTitle span.close {
+    cursor: pointer;
+    color: #000;
+    font-weight: bold;
+    font-size: 12px;
+    right: 5px;
+    width: 32px;
+    line-height: 32px;
+    opacity: 1;
+    text-shadow: none;
+}
+
+div.divAlert div.winContent {
+    padding: 20px;
+    background-color: #fff;
+    min-height: 45px;
+}
+
+div.divAlert div.winContent>p.msg {
+    text-indent: 2em;
+    font-size: 14px;
+}
+
+div.divAlert div.winButtons {
+    background-color: #fff;
+    min-height: 45px;
+    padding: 0 25px;
+    text-align: right;
+}
+
+a.btn_yes {
+    cursor: pointer;
+    background-color: #1A4F85;
+    border: 1px solid #103152;
+    color: #FFFFFF;
+    font-size: 13px;
+    border-radius: 2px;
+    padding: 5px 10px;
+    float: right;
+}
+
+a.btn_yes:hover {
+    color: #fff;
+    background-color: #133b63;
+}
+
+a.btn_no {
+    cursor: pointer;
+    background-color: #F0F0F0;
+    border: 1px solid #CCCCCC;
+    color: #141414;
+    font-size: 13px;
+    border-radius: 2px;
+    line-height: 1.5;
+    padding: 6px 10px;
+}
+
+a.btn_no:hover {
+    color: #141414;
+    background-color: #dbdbdb;
+    border-color: #9e9e9e;
+}
+
+
+/**3.3loading层样式*/
+
+div.divLoading {
+    background: none repeat scroll 0 0 #C3DAF9;
+    border: 1px solid #6593CF;
+    left: 0;
+    top: 0;
+    padding: 2px;
+    position: absolute;
+    z-index: 999;
+}
+
+div.divLoading>div {
+    background: url("loadingmask.gif") no-repeat scroll 5px 5px #FBFBFB;
+    border: 1px solid #A3BAD9;
+    color: #222222;
+    cursor: wait;
+    padding: 5px 10px 5px 25px;
+}
+
+.m_hide {
+    display: none;
+}

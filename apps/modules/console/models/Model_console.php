@@ -9,7 +9,7 @@ defined('BASEPATH') or die('No direct script access allowed');
  * @copyright Copyright (c) 2010-2016, Orzm.net
  * @license http://opensource.org/licenses/GPL-3.0    GPL-3.0
  * @link http://orzm.net
- * @version 2016-03-31 11:33:07
+ * @version 2016-03-31 15:43:13
  * @author Alex Liu<lxiangcn@gmail.com>
  */
 class Model_console extends MY_Model {
@@ -147,20 +147,21 @@ class Model_console extends MY_Model {
     public function ziplog($post) {
         $date = $post['date'];
         log_message('debug', '=>1.to zip log file, date[' . $date . ']');
-        $pfile = APPPATH . 'logs/log-' . $date . '.php'; //log file
+        $pfile = FCPATH . 'data/logs/log-' . $date . '.php'; //log file
         if (!file_exists($pfile)) {
             log_message('error', '# zip log error, log not exists.');
             return $this->makeRetMsg(false, '日志文件不存在。');
         }
         $zip = new ZipArchive();
         // create zip file
-        $zfile = APPPATH . 'logs/log-' . $date . '.zip';
-        if (!$zip->open($zfile, ZipArchive::OVERWRITE)) {
+        $zfile = FCPATH . 'data/logs/log-' . $date . '.zip';
+        if (!$zip->open($zfile,ZipArchive::OVERWRITE)) {
             log_message('error', 'failed to create zip, name is [' . $zfile . ']');
             return $this->makeRetMsg(false, '创建压缩文件失败。');
         }
         log_message('debug', '<= 1.create empty zip ok.');
         $target = basename($pfile);
+
         if (!$zip->addFile($pfile, $target)) {
             log_message('error', 'failed to zip log file.');
             return $this->makeRetMsg(false, '压缩文件失败，无法压缩日志文件。');
@@ -176,14 +177,14 @@ class Model_console extends MY_Model {
     public function ziperrorlog($post) {
         $date = $post['date'];
         log_message('debug', '=>1.to zip log file, date[' . $date . ']');
-        $pfile = APPPATH . 'logs/error-log-' . $date . '.php'; //log file
+        $pfile = FCPATH . 'data/logs/error-log-' . $date . '.php'; //log file
         if (!file_exists($pfile)) {
             log_message('error', '# zip log error, log not exists.');
             return $this->makeRetMsg(false, '日志文件不存在。');
         }
         $zip = new ZipArchive();
         // create zip file
-        $zfile = APPPATH . 'logs/error-log-' . $date . '.zip';
+        $zfile = FCPATH . 'data/logs/error-log-' . $date . '.zip';
         if (!$zip->open($zfile, ZipArchive::OVERWRITE)) {
             log_message('error', 'failed to create zip, name is [' . $zfile . ']');
             return $this->makeRetMsg(false, '创建压缩文件失败。');
@@ -200,7 +201,7 @@ class Model_console extends MY_Model {
     public function downlog($date) {
         // send HTTP header name
         header("Content-type: application/x-zip-compressed");
-        $strName  = APPPATH . 'logs/log-' . $date . '.zip';
+        $strName  = FCPATH . 'data/logs/log-' . $date . '.zip';
         $filename = basename($strName);
         log_message('error', $filename);
         // process file name in Chinese
@@ -224,7 +225,7 @@ class Model_console extends MY_Model {
     public function downerrorlog($date) {
         // send HTTP header name
         header("Content-type: application/x-zip-compressed");
-        $strName  = APPPATH . 'logs/error-log-' . $date . '.zip';
+        $strName  = FCPATH . 'data/logs/error-log-' . $date . '.zip';
         $filename = basename($strName);
         log_message('error', $filename);
         // process file name in Chinese
@@ -353,6 +354,15 @@ class Model_console extends MY_Model {
         $today = date('Y-m-d', time());
         if ($date != $today) {return;}
         try {@unlink($filename);} catch (Exception $e) {}
+    }
+    /**
+     * u1.make common return msg
+     * @param  [type] $success [description]
+     * @param  [type] $msg     [description]
+     * @return [type]          [description]
+     */
+    private function makeRetMsg($success, $msg) {
+        return array('success' => $success, 'message' => $msg);
     }
 }
 ?>

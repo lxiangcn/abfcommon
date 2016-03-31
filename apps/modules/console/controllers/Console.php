@@ -9,7 +9,7 @@ defined('BASEPATH') or die('No direct script access allowed');
  * @copyright Copyright (c) 2010-2016, Orzm.net
  * @license http://opensource.org/licenses/GPL-3.0    GPL-3.0
  * @link http://orzm.net
- * @version 2016-03-31 10:52:52
+ * @version 2016-03-31 16:29:28
  * @author Alex Liu<lxiangcn@gmail.com>
  */
 class Console extends Admin_Controller {
@@ -45,7 +45,8 @@ class Console extends Admin_Controller {
             echo json_encode($retArr);return;
         case 'view':
             $retArr = $this->console->viewlog($_POST);
-            echo json_encode($retArr);return;
+            echo json_encode($retArr);
+            return;
         case 'zip':
             $retArr = $this->console->ziplog($_POST);
             break;
@@ -69,11 +70,29 @@ class Console extends Admin_Controller {
     }
 
     /**
+     * download log zip file
+     * @param  string $date 日期
+     * @return
+     */
+    public function downlog($date){
+        $action = $_SERVER['REQUEST_URI'];
+        $versionNo = $this->getCurVersion();
+
+        $zipFile = FCPATH . 'data/logs/log-'.$date.'.zip';
+        if(!file_exists($zipFile)){
+            $retArr = array('success'=>false,'message'=>'下载文件不存在！');
+            return $this->ajaxResponse($action, $versionNo, false, 'login error!', $retArr);
+        }
+        $this->console->downlog($date);
+    }
+
+    /**
      * to load tpl with default layout
      * @param  string  $content   the name of tpl need to render
      * @return array( success:boolean, message: mixed )
      */
     private function toLoadTpl($content) {
+        $data = array();
         $this->output("admin_layout", array("body" => "console/index"), $data);
     }
 

@@ -7,7 +7,7 @@ defined('BASEPATH') or die('No direct script access allowed');
  * @copyright Copyright (c) 2010 - 2016, Orzm.net
  * @license http://opensource.org/licenses/GPL-3.0    GPL-3.0
  * @link http://orzm.net
- * @version 2016-03-31 11:04:16
+ * @version 2016-03-31 14:31:21
  * @author Alex Liu<lxiangcn@gmail.com>
  */
 
@@ -47,15 +47,7 @@ abstract class MY_Controller extends Base_Controller {
     public function __construct() {
         parent::__construct();
         $this->pre_fix = $this->db->dbprefix;
-        // date_default_timezone_set ( 'Asia/Shanghai' );
-        // $this->config->set_item ( 'sess_driver', 'database' );
-        // $this->config->set_item ( 'sess_cookie_name', $this->pre_fix .
-        // 'session' );
-        // $this->config->set_item ( 'sess_expiration', 7200 );
-        // $this->config->set_item ( 'sess_save_path', NULL );
-        // $this->config->set_item ( 'sess_match_ip', FALSE );
-        // $this->config->set_item ( 'sess_time_to_update', 300 );
-        // $this->config->set_item ( 'sess_regenerate_destroy', FALSE );
+
         // 加载用户模型
         $this->load->model('auth/model_admin', 'admin', TRUE);
         $this->load->library('auth/admin_auth');

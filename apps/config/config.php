@@ -306,19 +306,6 @@ $config['cache_query_string'] = FALSE;
 
 /*
 |--------------------------------------------------------------------------
-| Encryption Key
-|--------------------------------------------------------------------------
-|
-| If you use the Encryption class, you must set an encryption key.
-| See the user guide for more info.
-|
-| http://codeigniter.com/user_guide/libraries/encryption.html
-|
- */
-$config['encryption_key'] = 'e2b52c40ddece8f983a1bf2a82c379f2';
-
-/*
-|--------------------------------------------------------------------------
 | Session Variables
 |--------------------------------------------------------------------------
 |
@@ -365,10 +352,11 @@ $config['encryption_key'] = 'e2b52c40ddece8f983a1bf2a82c379f2';
 | except for 'cookie_prefix' and 'cookie_httponly', which are ignored here.
 |
  */
-$config['sess_driver']             = 'files';
-$config['sess_cookie_name']        = 'ci_session';
+
+$config['sess_driver']             = 'database';
+$config['sess_cookie_name']        = 'abf_sessions';
 $config['sess_expiration']         = 7200;
-$config['sess_save_path']          = NULL;
+$config['sess_save_path']          = 'abf_sessions';
 $config['sess_match_ip']           = FALSE;
 $config['sess_time_to_update']     = 300;
 $config['sess_regenerate_destroy'] = FALSE;

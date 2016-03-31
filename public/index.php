@@ -59,7 +59,6 @@ case 'i-nxqx1cvw':
     define('ENVIRONMENT', 'production');
     break;
 case 'i-n9etv7ms':
-case 'desktop-ult2t2u':
     define('ENVIRONMENT', 'testing');
     break;
 default:

@@ -1,5 +1,5 @@
 <?php
-defined ( 'BASEPATH' ) or die ( 'No direct script access allowed' );
+defined('BASEPATH') or die('No direct script access allowed');
 
 /**
  * FileName : Developer.php
@@ -11,8 +11,8 @@ defined ( 'BASEPATH' ) or die ( 'No direct script access allowed' );
  */
 class Cron extends MX_Controller {
 
-	public function index() {
-		$this->load->library ( 'cron_schedule' );
-		$this->cron_schedule->dispatch ();
-	}
+    public function index() {
+        $this->load->library('cron_schedule');
+        $this->cron_schedule->dispatch();
+    }
 }

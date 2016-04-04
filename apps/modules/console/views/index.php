@@ -27,14 +27,14 @@
     <div class="panel-body">
         <div class="form-group col-xs-12">
             <div class="col-xs-2">
-                <input type="text" class="form-control" id="f_date" value="2016-03-31">
+                <input type="text" class="form-control" id="f_date" value="<?php echo date('Y-m-d', time()); ?>">
             </div>
-            <div class="col-xs-3">
+            <div class="col-xs-4">
                 <a onclick="huiber.readlog.readlog();" class="btn btn-danger">读取日志</a>
                 <a onclick="huiber.readlog.downlog();" class="btn btn-success">下载日志</a>
                 <a onclick="huiber.readlog.downerrorlog();" class="btn btn-success">下载错误日志</a>
             </div>
-            <div class="col-xs-3">
+            <div class="col-xs-2">
                 <input type="text" placeholder="请输入日志内容查询" class="form-control" id="f_title">
             </div>
             <div class="col-xs-4">

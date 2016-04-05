@@ -16,7 +16,7 @@
 <div class="panel panel-default">
 	<div class="panel-heading">
 		<h3 class="panel-title">
-			添加角色
+			编辑用户组
 			<span class="small pull-right">
 				<a href="<?php echo site_url("auth/groups/index"); ?>">返回列表</a>
 			</span>

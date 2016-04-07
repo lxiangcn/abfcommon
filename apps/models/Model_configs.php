@@ -30,6 +30,14 @@ class Model_configs extends MY_Model {
 		}
 		return $arr;
 	}
+function get_configs_all(){
+	$configs = $this->find_all ();
+		foreach ( $configs as $value ) {
+			$arr [$value->group][] = $value;
+		}
+		return $arr;
+}
+
 
 	function get_config() {
 		return $this->db->get ( 'configs' )->row ();

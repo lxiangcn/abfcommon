@@ -21,17 +21,6 @@ class System extends Admin_Controller {
      */
     public function site() {
         $data["page_title"] = "系统设置";
-        $this->form_validation->set_rules('site_name', '站点名称', 'htmlspecialchars');
-        $this->form_validation->set_rules('site_url', '网站地址', 'valid_url');
-        $this->form_validation->set_rules('admin_email', '管理员邮箱', 'valid_email');
-        $this->form_validation->set_rules('keywords', '网站关键词', 'htmlspecialchars');
-        $this->form_validation->set_rules('description', '网站描述', 'htmlspecialchars');
-        $this->form_validation->set_rules('site_icp', '备案编号', 'htmlspecialchars');
-        $this->form_validation->set_rules('site_close_tip', '提示内容', 'htmlspecialchars');
-        $this->form_validation->set_rules('upload_path', '附件路径', 'htmlspecialchars');
-        $this->form_validation->set_rules('allowed_types', '允许类型', 'htmlspecialchars');
-        $this->form_validation->set_rules('upload_max_size', '最大文件', 'numeric');
-        $this->form_validation->set_rules('cdn_url', 'CDN URL', 'valid_url');
         if ($this->input->post()) {
             $post = $this->input->post();
             foreach ($post as $key => $value) {
@@ -42,9 +31,7 @@ class System extends Admin_Controller {
             // write_cache ( TRUE );
             $this->success('站点信息设置成功');
         }
-
-        $data['site_basic'] = $this->data["config"];
-
+        $data['site_basic'] = $this->configs->get_configs_all()	;
         $data['csrf_name']  = $this->security->get_csrf_token_name();
         $data['csrf_token'] = $this->security->get_csrf_hash();
         $this->output("admin_layout", array("body" => "system/site"), $data);

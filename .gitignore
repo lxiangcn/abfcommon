@@ -1,13 +1,3 @@
 .gitignore
-public/data/logs/log-2016-04-05.php
-public/data/logs/log-2016-04-06.php
 .project
-apps/config/development/database.php
-apps/config/production/database.php
-apps/config/testing/database.php
-public/data/logs/log-2016-04-06_tmp.php
-public/data/logs/log-2016-04-07.php
-apps/config/development/database.php
-apps/config/production/database.php
-apps/config/testing/database.php
-public/data/logs/log-2016-04-08.php
+public/data/logs/log-*.php

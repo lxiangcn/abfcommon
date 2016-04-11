@@ -30,10 +30,9 @@ class System extends Admin_Controller {
             // 重写缓存
             // write_cache ( TRUE );
             $this->success('站点信息设置成功');
+            redirect("dashboard/system/site", 'refresh');
         }
-        $data['site_basic'] = $this->configs->get_configs_all()	;
-        $data['csrf_name']  = $this->security->get_csrf_token_name();
-        $data['csrf_token'] = $this->security->get_csrf_hash();
+        $data['site_basic'] = $this->configs->get_configs_all();
         $this->output("admin_layout", array("body" => "system/site"), $data);
     }
 

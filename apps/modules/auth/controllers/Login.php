@@ -2,13 +2,13 @@
 
 defined('BASEPATH') or die('No direct script access allowed');
 /**
- *    abfcommon
+ * abfcommon
  *
  * @package Login
  * @copyright Copyright (c) 2010 - 2016, Orzm.net
  * @license http://opensource.org/licenses/GPL-3.0    GPL-3.0
  * @link http://orzm.net
- * @version 2016-03-20 21:42:58
+ * @version 2016-04-11 10:30:26
  * @author Alex Liu<lxiangcn@gmail.com>
  */
 class Login extends Other_Controller {

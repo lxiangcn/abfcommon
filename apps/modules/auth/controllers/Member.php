@@ -2,13 +2,13 @@
 defined('BASEPATH') or exit('No direct script access allowed');
 
 /**
- *    abfcommon
+ * abfcommon
  *
  * @package Member
  * @copyright Copyright (c) 2010 - 2016, Orzm.net
  * @license http://opensource.org/licenses/GPL-3.0    GPL-3.0
  * @link http://orzm.net
- * @version 2016-03-23 09:50:27
+ * @version 2016-04-11 10:30:31
  * @author Alex Liu<lxiangcn@gmail.com>
  */
 class Member extends Other_Controller {

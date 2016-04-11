@@ -49,9 +49,9 @@
 					</td>
 					<td>
 						<div aria-label="small button group" role="group" class="btn-group btn-group-sm">
-							<a href="<?php echo site_url('auth/groups/edit/' . $v->id ); ?>" class="btn btn-primary btn-sm">编辑</a>
+							<a href="<?php echo site_url('auth/groups/edit/' . $v->id); ?>" class="btn btn-primary btn-sm">编辑</a>
 							<?php if ($v->id != 1): ?>
-							<a rel="nofollow" data-method="delete" data-confirm="真的要删除吗？" class="btn btn-sm btn-danger" href="<?php echo site_url('auth/role/delete/' . $v->id ); ?>">删除</a>
+							<a rel="nofollow" data-method="delete" data-confirm="真的要删除吗？" class="btn btn-sm btn-danger" href="<?php echo site_url('auth/groups/delete/' . $v->id); ?>">删除</a>
 							<?php endif;?>
 						</div>
 					</td>

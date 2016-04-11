@@ -1,13 +1,16 @@
 <?php
+
 defined('BASEPATH') or die('No direct script access allowed');
 
 /**
- * FileName : Member.php
- * DateTime : 2015年4月23日
+ * abfcommon
  *
- * Author : Alex Liu<lxiangcn@gmail.com>
- * Description :
- * Copyright (c) 2015 http://orzm.net All Rights Reserved.
+ * @package Admin
+ * @copyright Copyright (c) 2010-2016, Orzm.net
+ * @license http://opensource.org/licenses/GPL-3.0    GPL-3.0
+ * @link http://orzm.net
+ * @version 2016-04-11 10:30:01
+ * @author Alex Liu<lxiangcn@gmail.com>
  */
 class Admin extends Admin_Controller {
     function __construct() {

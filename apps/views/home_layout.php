@@ -42,11 +42,11 @@
 			<ul class="nav navbar-nav navbar-right">
 				<?php if ($this->member_auth->is_login()): ?>
 				<li>
-					<a href="<?php echo site_url('auth/member/logout'); ?>">退出</a>
+					<a href="<?php echo site_url('auth/user/logout'); ?>">退出</a>
 				</li>
 				<?php else: ?>
 				<li>
-					<a href="<?php echo site_url('auth/member/login'); ?>">登录</a>
+					<a href="<?php echo site_url('auth/user/login'); ?>">登录</a>
 				</li>
 				<?php endif;?>
 			</ul>
@@ -72,12 +72,6 @@
 		<div class="alert alert-warning alert-page">
 				<button type="button" class="close" data-dismiss="alert">&times;</button>
 			<?php echo $this->session->flashdata('notice'); ?>
-		</div>
-		<?php endif;?>
-		<?php if (validation_errors() != FALSE): ?>
-		<div class="alert alert-danger alert-page main-menu-fixed">
-				<button type="button" class="close" data-dismiss="alert">&times;</button>
-			<?php echo validation_errors('<p class="error">', '</p>'); ?>
 		</div>
 		<?php endif;?>
 		<?php echo $body; ?>

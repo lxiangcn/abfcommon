@@ -8,7 +8,7 @@ defined('BASEPATH') or die('No direct script access allowed');
  * @copyright Copyright (c) 2010 - 2016, Orzm.net
  * @license http://opensource.org/licenses/GPL-3.0    GPL-3.0
  * @link http://orzm.net
- * @version 2016-03-21 21:05:07
+ * @version 2016-04-12 16:30:00
  * @author Alex Liu<lxiangcn@gmail.com>
  */
 /*
@@ -16,7 +16,7 @@ defined('BASEPATH') or die('No direct script access allowed');
  * | Authentication options.
  * | -------------------------------------------------------------------------
  */
-$config['default_group']        = 'members'; // Default group, use name
+$config['default_group']        = 'member'; // Default group, use name
 $config['admin_group']          = 'admin'; // Default administrators group, use name
 $config['identity']             = 'username'; // 设置用户登录名管理字段
 $config['email']                = 'email'; // 设置用户邮箱字段

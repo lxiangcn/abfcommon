@@ -16,7 +16,7 @@
 	</div>
 	<div class="panel-body">
 		<ul class="note">
-			
+
 		</ul>
 		<table class="table table-hover table-condensed">
 			<colgroup>
@@ -55,9 +55,10 @@
 					</td>
 					<td>
 						<div aria-label="small button group" role="group" class="btn-group btn-group-sm">
-							<a href="#" class="btn btn-primary btn-sm">编辑</a>
+							<a href="<?php echo site_url('auth/member/audit/' . $v->id . '/' . $page_no); ?>" class="btn btn-warning btn-sm">审核</a>
+							<a href="<?php echo site_url('auth/member/edit/' . $v->id . '/' . $page_no); ?>" class="btn btn-primary btn-sm">编辑</a>
 							<?php if ($v->id != 1): ?>
-							<a rel="nofollow" data-method="delete" data-confirm="真的要删除吗？" class="btn btn-sm btn-danger" href="#">删除</a>
+							<a rel="nofollow" data-method="delete" data-confirm="真的要删除吗？" class="btn btn-sm btn-danger" href="<?php echo site_url('auth/member/delete/' . $v->id); ?>">删除</a>
 							<?php endif;?>
 						</div>
 					</td>

@@ -1,7 +1,7 @@
 <div class="panel panel-default">
       <div class="panel-heading"><?php echo __('create_user'); ?></div>
       <div class="panel-body">
-            <?php echo form_open("auth/member/register?ref=" . $ref, 'class="form-horizontal"'); ?>
+            <?php echo form_open("auth/user/register?ref=" . $ref, 'class="form-horizontal"'); ?>
             <div class="form-group">
                   <label for="name" class="col-sm-2 control-label"><?php echo __('create_user_username_label', 'username'); ?></label>
                   <div class="col-sm-5">
@@ -40,7 +40,7 @@
             <div class="form-group">
                   <label for="url" class="col-md-2 control-label"></label>
                   <div class="col-sm-5">
-                        <a href="<?php echo site_url('auth/member/login'); ?>"><?php echo __('create_user_login_label'); ?></a>
+                        <a href="<?php echo site_url('auth/user/login'); ?>"><?php echo __('create_user_login_label'); ?></a>
                   </div>
             </div>
             <?php echo form_close(); ?>

@@ -56,19 +56,19 @@
 </div>
 <div class="container">
 	<div class="row">
-		<?php if ($this->session->flashdata('success') != FALSE): ?>
+		<?php if ($this->session->flashdata('success')): ?>
 		<div class="alert alert-success alert-page">
 				<button type="button" class="close" data-dismiss="alert">&times;</button>
 			<?php echo $this->session->flashdata('success'); ?>
 		</div>
 		<?php endif;?>
-		<?php if ($this->session->flashdata('error') != FALSE): ?>
+		<?php if ($this->session->flashdata('error')): ?>
 		<div class="alert alert-danger alert-page">
 				<button type="button" class="close" data-dismiss="alert">&times;</button>
 			<?php echo $this->session->flashdata('error'); ?>
 		</div>
 		<?php endif;?>
-		<?php if ($this->session->flashdata('notice') != FALSE): ?>
+		<?php if ($this->session->flashdata('notice')): ?>
 		<div class="alert alert-warning alert-page">
 				<button type="button" class="close" data-dismiss="alert">&times;</button>
 			<?php echo $this->session->flashdata('notice'); ?>

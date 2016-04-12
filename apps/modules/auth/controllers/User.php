@@ -8,7 +8,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
  * @copyright Copyright (c) 2010 - 2016, Orzm.net
  * @license http://opensource.org/licenses/GPL-3.0    GPL-3.0
  * @link http://orzm.net
- * @version 2016-04-12 16:56:22
+ * @version 2016-04-12 17:44:47
  * @author Alex Liu<lxiangcn@gmail.com>
  */
 class User extends Other_Controller {
@@ -214,7 +214,7 @@ class User extends Other_Controller {
                 } else {
                     $this->member_auth->set_message('forgot_password_email_not_found');
                 }
-                $this->error($this->member_auth->messages());
+                $this->notice($this->member_auth->messages());
                 redirect("auth/user/forgot_password");
             }
             $identity_label = $this->config->item('identity', 'member_auth');
@@ -226,7 +226,7 @@ class User extends Other_Controller {
                 $this->success($this->member_auth->messages());
                 redirect("auth/user/login"); // we should display a confirmation page here instead of the login page
             } else {
-                $this->error($this->member_auth->errors());
+                $this->notice($this->member_auth->errors());
                 redirect("auth/user/forgot_password");
             }
         }

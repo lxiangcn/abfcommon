@@ -59,7 +59,7 @@ $autoload['packages'] = array(APPPATH . 'third_party');
 |    $autoload['libraries'] = array('user_agent' => 'ua');
  */
 
-$autoload['libraries'] = array('template', 'database', 'session', 'acl', 'pagination');
+$autoload['libraries'] = array('template', 'database', 'session', 'pagination');
 
 /*
 | -------------------------------------------------------------------
@@ -85,7 +85,7 @@ $autoload['drivers'] = array();
 |    $autoload['helper'] = array('url', 'file');
  */
 
-$autoload['helper'] = array('url','sitting', 'my_form', 'form', 'string', 'file', 'html', 'common', 'language', 'ssl', 'pagination', 'category', 'cookie');
+$autoload['helper'] = array('url', 'sitting', 'my_form', 'form', 'string', 'file', 'html', 'common', 'language', 'ssl', 'pagination', 'category', 'cookie');
 
 /*
 | -------------------------------------------------------------------

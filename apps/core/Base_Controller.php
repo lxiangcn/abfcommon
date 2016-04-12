@@ -9,7 +9,7 @@ defined('BASEPATH') or die('No direct script access allowed');
  * @copyright Copyright (c) 2010-2016, Orzm.net
  * @license http://opensource.org/licenses/GPL-3.0    GPL-3.0
  * @link http://orzm.net
- * @version 2016-03-31 15:26:20
+ * @version 2016-04-12 17:44:21
  * @author Alex Liu<lxiangcn@gmail.com>
  */
 
@@ -92,16 +92,7 @@ class Base_Controller extends MX_Controller {
      * @param array
      */
     public function response($addon_data = NULL) {
-        $data = array(
-            'message_type' => $this->message_type,
-            'message'      => $this->message,
-        );
-
-        if (!empty($addon_data)) {
-            $data = array_merge($data, $addon_data);
-        }
-
-        $this->session->set_flashdata($this->message_type, ($this->message));
+        $this->session->set_flashdata($this->message_type, $this->message);
     }
 
     /**
@@ -176,21 +167,20 @@ class Base_Controller extends MX_Controller {
         $this->jsonResponse($arrConfig);
     }
 
-
     /**
      * echoHeaderForJson : Echo header for ajax request.
      *
      * @access public
      * @return none
      */
-    protected function echoHeaderForJson($type='application/json') {
+    protected function echoHeaderForJson($type = 'application/json') {
         $encoding = strtolower($this->config->item('charset'));
-        header("Content-type: $type; charset=$encoding", true, 200 );
-        header("Expires: Mon, 26 Jul 1997 05:00:00 GMT");                       // Date in the past
-        header("Last-Modified: " . gmdate("D, d M Y H:i:s") . " GMT");          // always modified
-        header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");// HTTP/1.1
+        header("Content-type: $type; charset=$encoding", true, 200);
+        header("Expires: Mon, 26 Jul 1997 05:00:00 GMT"); // Date in the past
+        header("Last-Modified: " . gmdate("D, d M Y H:i:s") . " GMT"); // always modified
+        header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0"); // HTTP/1.1
         header("Cache-Control: post-check=0, pre-check=0", false);
-        header("Pragma: no-cache");                                             // HTTP/1.0
+        header("Pragma: no-cache"); // HTTP/1.0
     }
     /**
      * echoHeaderForHtml : Echo header for ajax request.
@@ -211,10 +201,10 @@ class Base_Controller extends MX_Controller {
     protected function echoHeaderForExcel() {
 
         header('Content-type: "application/vnd.ms-excel"');
-        header("Content-Disposition: attachment;Filename=data.xls" );
-        header("Expires: Mon, 26 Jul 1997 05:00:00 GMT");                       // Date in the past
-        header("Last-Modified: " . gmdate("D, d M Y H:i:s") . " GMT");          // always modified
-        header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");// HTTP/1.1
+        header("Content-Disposition: attachment;Filename=data.xls");
+        header("Expires: Mon, 26 Jul 1997 05:00:00 GMT"); // Date in the past
+        header("Last-Modified: " . gmdate("D, d M Y H:i:s") . " GMT"); // always modified
+        header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0"); // HTTP/1.1
         header("Cache-Control: post-check=0, pre-check=0", false);
         header("Pragma: no-cache");
 

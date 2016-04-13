@@ -59,7 +59,7 @@ $autoload['packages'] = array(APPPATH . 'third_party');
 |    $autoload['libraries'] = array('user_agent' => 'ua');
  */
 
-$autoload['libraries'] = array('template', 'database', 'session', 'pagination');
+$autoload['libraries'] = array('template', 'database', 'session', 'acl', 'pagination');
 
 /*
 | -------------------------------------------------------------------

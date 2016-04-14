@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.0.10deb1
+-- version 4.5.1
 -- http://www.phpmyadmin.net
 --
--- 主机: localhost
--- 生成日期: 2016-03-22 20:57:21
--- 服务器版本: 10.0.24-MariaDB-1~trusty
--- PHP 版本: 5.6.19-1+deb.sury.org~trusty+1
+-- Host: 127.0.0.1
+-- Generation Time: 2016-04-14 05:29:54
+-- 服务器版本： 10.1.10-MariaDB
+-- PHP Version: 5.6.19
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -14,10 +14,10 @@ SET time_zone = "+00:00";
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
+/*!40101 SET NAMES utf8mb4 */;
 
 --
--- 数据库: `abfcommon`
+-- Database: `abfcommon`
 --
 
 -- --------------------------------------------------------
@@ -26,8 +26,9 @@ SET time_zone = "+00:00";
 -- 表的结构 `abf_admin`
 --
 
+DROP TABLE IF EXISTS `abf_admin`;
 CREATE TABLE IF NOT EXISTS `abf_admin` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '用户id',
+  `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '用户id',
   `username` varchar(50) DEFAULT NULL COMMENT '昵称',
   `nickname` varchar(64) DEFAULT NULL,
   `password` varchar(64) DEFAULT NULL COMMENT '密码',
@@ -44,14 +45,15 @@ CREATE TABLE IF NOT EXISTS `abf_admin` (
   `lost_password_key` varchar(40) DEFAULT '' COMMENT '忘记密码找回密码Key',
   `lost_password_expire` int(11) DEFAULT '0' COMMENT '忘记密码找回密码时间戳',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=14 ;
+) ENGINE=MyISAM AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
 
 --
 -- 转存表中的数据 `abf_admin`
 --
 
 INSERT INTO `abf_admin` (`id`, `username`, `nickname`, `password`, `email`, `salt`, `gender`, `active`, `logins`, `last_login`, `avatar_remote`, `token`, `created`, `ip_address`, `lost_password_key`, `lost_password_expire`) VALUES
-(1, 'admin', NULL, 'b1b1b5e8b00fd4bba028566e0f717b97d3f927c8', 'lxiangcn@qq.com', 'a11679', 'male', 1, 65, 1458651326, '', '5531571258853599255b79239ac758293b94b9a0', 1426144388, NULL, '', 0);
+(1, 'admin', '系统管理员', 'b1b1b5e8b00fd4bba028566e0f717b97d3f927c8', 'webmaster@orzm.net', 'a11679', 'male', 1, 65, 1460597888, '', '5531571258853599255b79239ac758293b94b9a0', 1426144388, NULL, '', 0),
+(14, 'demo', '演示用户', 'ce4d801fefc9ac8a815dff4bae0038643b60ad6e', 'demo@orzm.net', '179ea6', 'male', 1, 1, 1460598140, '', NULL, 1460597638, '127.0.0.1', '', 0);
 
 -- --------------------------------------------------------
 
@@ -59,6 +61,7 @@ INSERT INTO `abf_admin` (`id`, `username`, `nickname`, `password`, `email`, `sal
 -- 表的结构 `abf_admin_attempts`
 --
 
+DROP TABLE IF EXISTS `abf_admin_attempts`;
 CREATE TABLE IF NOT EXISTS `abf_admin_attempts` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `ip_address` varchar(20) DEFAULT NULL,
@@ -66,7 +69,7 @@ CREATE TABLE IF NOT EXISTS `abf_admin_attempts` (
   `time` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `login` (`login`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=26 ;
+) ENGINE=MyISAM AUTO_INCREMENT=26 DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -74,9 +77,10 @@ CREATE TABLE IF NOT EXISTS `abf_admin_attempts` (
 -- 表的结构 `abf_admin_role`
 --
 
+DROP TABLE IF EXISTS `abf_admin_role`;
 CREATE TABLE IF NOT EXISTS `abf_admin_role` (
-  `user_id` int(10) unsigned NOT NULL DEFAULT '0',
-  `group_id` int(10) unsigned NOT NULL DEFAULT '0',
+  `user_id` int(10) UNSIGNED NOT NULL DEFAULT '0',
+  `group_id` int(10) UNSIGNED NOT NULL DEFAULT '0',
   KEY `user_id` (`user_id`) USING BTREE,
   KEY `group_id` (`group_id`) USING BTREE
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
@@ -86,7 +90,8 @@ CREATE TABLE IF NOT EXISTS `abf_admin_role` (
 --
 
 INSERT INTO `abf_admin_role` (`user_id`, `group_id`) VALUES
-(1, 1);
+(1, 1),
+(14, 5);
 
 -- --------------------------------------------------------
 
@@ -94,11 +99,12 @@ INSERT INTO `abf_admin_role` (`user_id`, `group_id`) VALUES
 -- 表的结构 `abf_admin_role_priv`
 --
 
+DROP TABLE IF EXISTS `abf_admin_role_priv`;
 CREATE TABLE IF NOT EXISTS `abf_admin_role_priv` (
-  `group_id` int(10) unsigned NOT NULL DEFAULT '0',
-  `menu_id` int(10) unsigned NOT NULL DEFAULT '0',
-  `parent_node_id` int(10) unsigned NOT NULL DEFAULT '0',
-  `level` tinyint(1) unsigned NOT NULL DEFAULT '0',
+  `group_id` int(10) UNSIGNED NOT NULL DEFAULT '0',
+  `menu_id` int(10) UNSIGNED NOT NULL DEFAULT '0',
+  `parent_node_id` int(10) UNSIGNED NOT NULL DEFAULT '0',
+  `level` tinyint(1) UNSIGNED NOT NULL DEFAULT '0',
   KEY `group_id` (`group_id`) USING BTREE,
   KEY `node_id` (`menu_id`) USING BTREE
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
@@ -130,7 +136,24 @@ INSERT INTO `abf_admin_role_priv` (`group_id`, `menu_id`, `parent_node_id`, `lev
 (2, 4, 0, 0),
 (2, 3, 0, 0),
 (2, 2, 0, 0),
-(2, 239, 0, 0);
+(2, 239, 0, 0),
+(5, 53, 0, 0),
+(5, 299, 0, 0),
+(5, 298, 0, 0),
+(5, 297, 0, 0),
+(5, 296, 0, 0),
+(5, 52, 0, 0),
+(5, 241, 0, 0),
+(5, 285, 0, 0),
+(5, 292, 0, 0),
+(5, 291, 0, 0),
+(5, 290, 0, 0),
+(5, 284, 0, 0),
+(5, 239, 0, 0),
+(5, 259, 0, 0),
+(5, 272, 0, 0),
+(5, 13, 0, 0),
+(5, 28, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -138,19 +161,20 @@ INSERT INTO `abf_admin_role_priv` (`group_id`, `menu_id`, `parent_node_id`, `lev
 -- 表的结构 `abf_archive`
 --
 
+DROP TABLE IF EXISTS `abf_archive`;
 CREATE TABLE IF NOT EXISTS `abf_archive` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
   `channel_id` int(11) NOT NULL DEFAULT '0' COMMENT '频道编号',
-  `category_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '分类编号',
+  `category_id` int(11) UNSIGNED NOT NULL DEFAULT '0' COMMENT '分类编号',
   `mapping` varchar(40) DEFAULT '' COMMENT '目录路径',
-  `published` tinyint(1) unsigned NOT NULL DEFAULT '1' COMMENT '状态：0，不发布；1，发布',
-  `hot` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '热门推荐：0，否；1，是',
-  `recent` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '最新推荐：0，否；1，是',
-  `hits` smallint(6) unsigned NOT NULL DEFAULT '0' COMMENT '点击次数',
+  `published` tinyint(1) UNSIGNED NOT NULL DEFAULT '1' COMMENT '状态：0，不发布；1，发布',
+  `hot` tinyint(1) UNSIGNED NOT NULL DEFAULT '0' COMMENT '热门推荐：0，否；1，是',
+  `recent` tinyint(1) UNSIGNED NOT NULL DEFAULT '0' COMMENT '最新推荐：0，否；1，是',
+  `hits` smallint(6) UNSIGNED NOT NULL DEFAULT '0' COMMENT '点击次数',
   `top` smallint(6) NOT NULL DEFAULT '0' COMMENT '置顶编号',
   `title` varchar(40) DEFAULT NULL COMMENT '主题',
   `content` text COMMENT '内容',
-  `created` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '创建时间',
+  `created` int(11) UNSIGNED NOT NULL DEFAULT '0' COMMENT '创建时间',
   `image` varchar(255) DEFAULT NULL COMMENT '图像附件',
   `keywords` varchar(40) DEFAULT NULL COMMENT '关键词',
   `import_url` varchar(255) DEFAULT '' COMMENT '数据url',
@@ -160,7 +184,7 @@ CREATE TABLE IF NOT EXISTS `abf_archive` (
   KEY `news_cat_id` (`category_id`),
   KEY `published` (`published`),
   KEY `title` (`title`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='文章信息表' AUTO_INCREMENT=15 ;
+) ENGINE=MyISAM AUTO_INCREMENT=15 DEFAULT CHARSET=utf8 COMMENT='文章信息表';
 
 -- --------------------------------------------------------
 
@@ -168,15 +192,16 @@ CREATE TABLE IF NOT EXISTS `abf_archive` (
 -- 表的结构 `abf_areas`
 --
 
+DROP TABLE IF EXISTS `abf_areas`;
 CREATE TABLE IF NOT EXISTS `abf_areas` (
-  `id` smallint(5) unsigned NOT NULL AUTO_INCREMENT,
-  `parent_id` smallint(5) unsigned NOT NULL DEFAULT '0',
+  `id` smallint(5) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `parent_id` smallint(5) UNSIGNED NOT NULL DEFAULT '0',
   `name` varchar(120) NOT NULL DEFAULT '',
   `type` tinyint(1) NOT NULL DEFAULT '2',
   PRIMARY KEY (`id`),
   KEY `parent_id` (`parent_id`),
   KEY `type` (`type`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3409 ;
+) ENGINE=MyISAM AUTO_INCREMENT=3409 DEFAULT CHARSET=utf8;
 
 --
 -- 转存表中的数据 `abf_areas`
@@ -2153,15 +2178,16 @@ INSERT INTO `abf_areas` (`id`, `parent_id`, `name`, `type`) VALUES
 -- 表的结构 `abf_category`
 --
 
+DROP TABLE IF EXISTS `abf_category`;
 CREATE TABLE IF NOT EXISTS `abf_category` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `channel_id` int(11) NOT NULL DEFAULT '0',
-  `parent_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '上级编号',
+  `parent_id` int(11) UNSIGNED NOT NULL DEFAULT '0' COMMENT '上级编号',
   `name` varchar(45) DEFAULT NULL COMMENT '目录名',
   `created` int(11) NOT NULL DEFAULT '0' COMMENT '创建时间',
   `sort_order` smallint(6) NOT NULL DEFAULT '0' COMMENT '排序编号',
   `published` tinyint(4) NOT NULL DEFAULT '1' COMMENT '1启用，0不启用',
-  `sub_count` smallint(6) unsigned NOT NULL DEFAULT '0' COMMENT '所有下级分类的信息总数目',
+  `sub_count` smallint(6) UNSIGNED NOT NULL DEFAULT '0' COMMENT '所有下级分类的信息总数目',
   `mapping` varchar(40) DEFAULT NULL COMMENT '目录路径',
   PRIMARY KEY (`id`),
   KEY `parent_id` (`parent_id`),
@@ -2169,7 +2195,7 @@ CREATE TABLE IF NOT EXISTS `abf_category` (
   KEY `published` (`published`),
   KEY `mapping` (`mapping`),
   KEY `channel_id` (`channel_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='分类表' AUTO_INCREMENT=31 ;
+) ENGINE=MyISAM AUTO_INCREMENT=32 DEFAULT CHARSET=utf8 COMMENT='分类表';
 
 --
 -- 转存表中的数据 `abf_category`
@@ -2186,6 +2212,7 @@ INSERT INTO `abf_category` (`id`, `channel_id`, `parent_id`, `name`, `created`, 
 -- 表的结构 `abf_channel`
 --
 
+DROP TABLE IF EXISTS `abf_channel`;
 CREATE TABLE IF NOT EXISTS `abf_channel` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(50) DEFAULT NULL,
@@ -2195,7 +2222,7 @@ CREATE TABLE IF NOT EXISTS `abf_channel` (
   `created` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `name` (`name`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='频道' AUTO_INCREMENT=11 ;
+) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=utf8 COMMENT='频道';
 
 --
 -- 转存表中的数据 `abf_channel`
@@ -2211,41 +2238,46 @@ INSERT INTO `abf_channel` (`id`, `name`, `title`, `page_size`, `sort_order`, `cr
 -- 表的结构 `abf_configs`
 --
 
+DROP TABLE IF EXISTS `abf_configs`;
 CREATE TABLE IF NOT EXISTS `abf_configs` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `tag` varchar(40) NOT NULL COMMENT '记标',
   `value` varchar(255) DEFAULT NULL,
   `comment` varchar(255) DEFAULT NULL COMMENT '备注',
-  PRIMARY KEY (`tag`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='系统配置表';
+  `type` varchar(15) NOT NULL DEFAULT 'text',
+  `group` int(11) DEFAULT '1',
+  `ranges` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=3001 DEFAULT CHARSET=utf8;
 
 --
 -- 转存表中的数据 `abf_configs`
 --
 
-INSERT INTO `abf_configs` (`tag`, `value`, `comment`) VALUES
-('admin_email', 'webadmin@orzm.net', '管理员邮箱'),
-('admin_folder', 'admin', '后台入口路径'),
-('allowed_types', 'gif|jpg|jpeg|png|bmp', '附件类型 | 隔开'),
-('cat_level', '2', '分类允许最大级别数'),
-('cdn_url', '7xkv1j.com1.z0.glb.clouddn.com', 'CDN域名'),
-('description', 'OrzCMS企业建站系统，免费开源CMS，php', '网站描述'),
-('isrewrite', '0', '是否伪静态'),
-('is_cdn', '0', '是否启用静态资源CDN加速'),
-('keywords', 'OrzCMS企业建站系统', '关键词'),
-('news_comment_status', '2', '新闻评论设置：0，不开启；1，开启且需要审核；2，开启且不需要审核；默认为0'),
-('rewritetype', '.html', '设置伪静态后缀名'),
-('site_close', '0', '是否关闭网站'),
-('site_close_tip', '', '关闭网站提示'),
-('site_icp', '鄂ICP2000000号', '备案编号'),
-('site_name', '基础应用框架', '网站标题'),
-('site_url', 'http://www.orzm.net/', '网站网址'),
-('theme', 'theme', '风格模板'),
-('upload_encrypt_name', '1', '是否重新命名上传的文件名称'),
-('upload_max_size', '1000', '上传文件最大允许大小'),
-('upload_path', 'uploads', '附件目录'),
-('upload_path_format', 'Ymd', '目录格式'),
-('user_audit', '1', '注册用户是否需要审核，0：需要，1：不需要'),
-('wap_theme', 'wap', 'wap风格模板');
+INSERT INTO `abf_configs` (`id`, `tag`, `value`, `comment`, `type`, `group`, `ranges`) VALUES
+(1, 'site_name', 'abfcommon基础应用框架', '网站标题', 'text', 1, NULL),
+(2, 'site_url', 'http://orzm.net', '网站网址', 'text', 1, NULL),
+(3, 'site_close', '0', '是否关闭网站', 'radio', 1, '0,1'),
+(4, 'site_close_tip', '', '关闭网站提示', 'text', 1, NULL),
+(5, 'site_icp', '鄂ICP201610001', '备案编号', 'text', 1, NULL),
+(6, 'rewritetype', '.html', '设置伪静态后缀名', 'text', 1, NULL),
+(7, 'news_comment_status', '1', '新闻评论设置：0，不开启；1，开启且需要审核；2，开启且不需要审核；默认为0', 'radio', 1, '0,1'),
+(8, 'keywords', '', '关键词', 'text', 1, NULL),
+(9, 'description', '', '网站描述', 'text', 1, NULL),
+(10, 'isrewrite', '1', '是否伪静态', 'radio', 1, '0,1'),
+(11, 'cat_level', '', '分类允许最大级别数', 'text', 1, NULL),
+(12, 'theme', '', '风格模板', 'text', 1, NULL),
+(13, 'admin_email', '', '管理员邮箱', 'text', 1, NULL),
+(14, 'admin_folder', 'admin', '后台入口', 'text', 1, NULL),
+(15, 'wap_theme', 'theme', 'wap风格模板', 'text', 1, NULL),
+(16, 'user_audit', '1', '注册用户是否需要审核，0：需要，1：不需要', 'radio', 1, '0,1'),
+(17, 'upload_encrypt_name', '1', '是否重新命名上传的文件名称', 'radio', 2, '0,1'),
+(18, 'upload_max_size', '1000', '上传文件最大允许大小', 'text', 2, NULL),
+(19, 'upload_path', 'upload', '附件目录', 'text', 2, NULL),
+(20, 'upload_path_format', '20161010', '目录格式', 'text', 2, NULL),
+(21, 'allowed_types', 'jpg|gif|png', '附件类型 | 隔开', 'text', 2, NULL),
+(22, 'is_cdn', '0', '是否启用静态资源CDN加速', 'radio', 1, '0,1'),
+(23, 'cdn_url', '', 'CDN域名', 'text', 1, NULL);
 
 -- --------------------------------------------------------
 
@@ -2253,6 +2285,7 @@ INSERT INTO `abf_configs` (`tag`, `value`, `comment`) VALUES
 -- 表的结构 `abf_groups`
 --
 
+DROP TABLE IF EXISTS `abf_groups`;
 CREATE TABLE IF NOT EXISTS `abf_groups` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `group_name` varchar(50) DEFAULT NULL,
@@ -2260,16 +2293,15 @@ CREATE TABLE IF NOT EXISTS `abf_groups` (
   `published` tinyint(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`),
   UNIQUE KEY `group_name` (`group_name`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='用户分组表' AUTO_INCREMENT=4 ;
+) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COMMENT='用户分组表';
 
 --
 -- 转存表中的数据 `abf_groups`
 --
 
 INSERT INTO `abf_groups` (`id`, `group_name`, `description`, `published`) VALUES
-(1, 'admin', '管理员', 1),
-(2, 'members', '一般用户', 1),
-(3, 'test', '演示用户', 1);
+(1, 'member', '一般用户', 1),
+(4, 'vip', '会员', 1);
 
 -- --------------------------------------------------------
 
@@ -2277,18 +2309,26 @@ INSERT INTO `abf_groups` (`id`, `group_name`, `description`, `published`) VALUES
 -- 表的结构 `abf_links`
 --
 
+DROP TABLE IF EXISTS `abf_links`;
 CREATE TABLE IF NOT EXISTS `abf_links` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
   `name` varchar(100) DEFAULT NULL COMMENT '链接名',
   `url` varchar(255) DEFAULT NULL COMMENT '网站地址',
   `img` varchar(255) DEFAULT NULL COMMENT '图片路径',
   `hits` int(11) DEFAULT '0' COMMENT '点击率',
   `created` int(11) DEFAULT NULL COMMENT '创建时间',
-  `published` tinyint(1) unsigned DEFAULT '1' COMMENT '是否显示',
+  `published` tinyint(1) UNSIGNED DEFAULT '1' COMMENT '是否显示',
   PRIMARY KEY (`id`),
   KEY `name` (`name`),
   KEY `published` (`published`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='友情链接表' AUTO_INCREMENT=22 ;
+) ENGINE=MyISAM AUTO_INCREMENT=23 DEFAULT CHARSET=utf8 COMMENT='友情链接表';
+
+--
+-- 转存表中的数据 `abf_links`
+--
+
+INSERT INTO `abf_links` (`id`, `name`, `url`, `img`, `hits`, `created`, `published`) VALUES
+(22, '环球质量检测集团HUIBER', 'http://ask.zol.com.cn/q/58153.html', NULL, 0, 1460600303, 1);
 
 -- --------------------------------------------------------
 
@@ -2296,17 +2336,18 @@ CREATE TABLE IF NOT EXISTS `abf_links` (
 -- 表的结构 `abf_member`
 --
 
+DROP TABLE IF EXISTS `abf_member`;
 CREATE TABLE IF NOT EXISTS `abf_member` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '用户id',
+  `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '用户id',
   `username` varchar(50) DEFAULT NULL COMMENT '昵称',
   `nickname` varchar(64) DEFAULT NULL,
   `password` varchar(64) DEFAULT NULL COMMENT '密码',
   `email` varchar(100) DEFAULT NULL COMMENT '邮箱',
   `salt` char(6) DEFAULT NULL COMMENT '混淆码',
   `gender` enum('male','female') DEFAULT NULL COMMENT '性别',
-  `active` tinyint(1) unsigned DEFAULT '1' COMMENT '审核状态：0，未审核；1，通过；2，未通过；',
+  `active` tinyint(1) UNSIGNED DEFAULT '1' COMMENT '审核状态：0，未审核；1，通过；2，未通过；',
   `remember_code` varchar(40) NOT NULL,
-  `groupid` int(10) unsigned NOT NULL DEFAULT '0',
+  `groupid` int(10) UNSIGNED NOT NULL DEFAULT '0',
   `logins` int(11) DEFAULT '0' COMMENT '登录次数',
   `last_login` int(11) DEFAULT NULL COMMENT '最后登录时间',
   `avatar_remote` varchar(255) DEFAULT '' COMMENT '头像',
@@ -2316,15 +2357,15 @@ CREATE TABLE IF NOT EXISTS `abf_member` (
   `lost_password_key` varchar(40) DEFAULT '' COMMENT '忘记密码找回密码Key',
   `lost_password_expire` int(11) DEFAULT '0' COMMENT '忘记密码找回密码时间戳',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=17 ;
+) ENGINE=MyISAM AUTO_INCREMENT=18 DEFAULT CHARSET=utf8;
 
 --
 -- 转存表中的数据 `abf_member`
 --
 
 INSERT INTO `abf_member` (`id`, `username`, `nickname`, `password`, `email`, `salt`, `gender`, `active`, `remember_code`, `groupid`, `logins`, `last_login`, `avatar_remote`, `token`, `created`, `ip_address`, `lost_password_key`, `lost_password_expire`) VALUES
-(15, 'lxiangcn', '翕动', '084768866ab581f1f3aa834fc3f0815cb84abbdc', 'lxiangcn@qq.com', 'b6af41', NULL, 1, '932239', 0, 0, 1458629465, '', NULL, 1458487014, '127.0.0.1', 'b30965b89a68c916e0503ea1e808f79214a6fd53', 1458565384),
-(16, '15623243553', '系动', '26604c2a8b77496cc6a42dd83206d14e82b83057', 'lxiangcn@163.com', '1a67f8', NULL, 1, '', 0, 0, 1458565646, '', NULL, 1458565619, '127.0.0.1', '', 0);
+(15, 'lxiangcn', '翕动', '084768866ab581f1f3aa834fc3f0815cb84abbdc', 'lxiangcn@qq.com', 'b6af41', NULL, 1, '932239', 0, 0, 1458629465, '', NULL, 1458487014, '127.0.0.1', 'a190c3073a08e5c61e02680f72e2097693c4e7c6', 1460531017),
+(17, 'liuxiang', 'liuxiang', 'ca150604179174887dde63b91c0d29c430e2ccdb', 'lxiangcn@163.com', 'a56414', NULL, 1, '', 0, 0, 1460554028, '', NULL, 1460449810, '127.0.0.1', '', 0);
 
 -- --------------------------------------------------------
 
@@ -2332,6 +2373,7 @@ INSERT INTO `abf_member` (`id`, `username`, `nickname`, `password`, `email`, `sa
 -- 表的结构 `abf_member_attempts`
 --
 
+DROP TABLE IF EXISTS `abf_member_attempts`;
 CREATE TABLE IF NOT EXISTS `abf_member_attempts` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `ip_address` varchar(20) DEFAULT NULL,
@@ -2339,7 +2381,7 @@ CREATE TABLE IF NOT EXISTS `abf_member_attempts` (
   `time` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `login` (`login`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
+) ENGINE=MyISAM AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -2347,9 +2389,10 @@ CREATE TABLE IF NOT EXISTS `abf_member_attempts` (
 -- 表的结构 `abf_member_group`
 --
 
+DROP TABLE IF EXISTS `abf_member_group`;
 CREATE TABLE IF NOT EXISTS `abf_member_group` (
-  `user_id` int(10) unsigned NOT NULL DEFAULT '0',
-  `group_id` int(10) unsigned NOT NULL DEFAULT '0',
+  `user_id` int(10) UNSIGNED NOT NULL DEFAULT '0',
+  `group_id` int(10) UNSIGNED NOT NULL DEFAULT '0',
   KEY `user_id` (`user_id`) USING BTREE,
   KEY `group_id` (`group_id`) USING BTREE
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
@@ -2361,7 +2404,8 @@ CREATE TABLE IF NOT EXISTS `abf_member_group` (
 INSERT INTO `abf_member_group` (`user_id`, `group_id`) VALUES
 (14, 2),
 (15, 2),
-(16, 2);
+(16, 2),
+(17, 1);
 
 -- --------------------------------------------------------
 
@@ -2369,9 +2413,10 @@ INSERT INTO `abf_member_group` (`user_id`, `group_id`) VALUES
 -- 表的结构 `abf_menus`
 --
 
+DROP TABLE IF EXISTS `abf_menus`;
 CREATE TABLE IF NOT EXISTS `abf_menus` (
-  `id` smallint(6) unsigned NOT NULL AUTO_INCREMENT,
-  `parent_id` smallint(6) unsigned NOT NULL DEFAULT '0',
+  `id` smallint(6) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `parent_id` smallint(6) UNSIGNED NOT NULL DEFAULT '0',
   `name` varchar(20) COLLATE utf8_unicode_ci DEFAULT NULL,
   `url` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `class` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
@@ -2381,11 +2426,11 @@ CREATE TABLE IF NOT EXISTS `abf_menus` (
   `is_menu` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否为菜单',
   `published` tinyint(1) NOT NULL DEFAULT '1',
   `is_system` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否系统默认菜单',
-  `sort_order` tinyint(3) unsigned NOT NULL DEFAULT '0',
+  `sort_order` tinyint(3) UNSIGNED NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `published` (`published`),
   KEY `name` (`name`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='管理菜单表' AUTO_INCREMENT=285 ;
+) ENGINE=MyISAM AUTO_INCREMENT=317 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='管理菜单表';
 
 --
 -- 转存表中的数据 `abf_menus`
@@ -2399,7 +2444,7 @@ INSERT INTO `abf_menus` (`id`, `parent_id`, `name`, `url`, `class`, `method`, `i
 (5, 239, 'SMTP设置', 'admin/system/email', 'dashboard/system', 'email', NULL, 1, 0, 0, 0, 0),
 (6, 239, 'API设置', 'admin/system/api', 'dashboard/system', 'api', NULL, 1, 0, 0, 0, 0),
 (8, 239, '模板选择', 'admin/template/index', 'dashboard/template', 'index', NULL, 1, 0, 0, 0, 0),
-(9, 239, '路由管理', 'admin/menu/index', 'dashboard/menu', 'index', 'fa-adjust', NULL, 1, 1, 1, 0),
+(9, 239, '菜单权限', 'admin/menu/index', 'dashboard/menu', 'index', 'fa-adjust', NULL, 1, 1, 1, 0),
 (10, 239, '页面预览', 'dashboard/template/preview', 'dashboard/template', 'preview', NULL, 1, 0, 0, 0, 0),
 (283, 282, '管理员管理', NULL, 'auth/admin', 'index', 'fa-adjust', NULL, 1, 1, 0, 100),
 (13, 259, '单页列表', 'admin/page/index', 'dashboard/page', 'index', 'fa-adjust', NULL, 1, 1, 0, 4),
@@ -2418,7 +2463,7 @@ INSERT INTO `abf_menus` (`id`, `parent_id`, `name`, `url`, `class`, `method`, `i
 (49, 48, '广告位管理', 'admin/ad/index', NULL, NULL, NULL, 1, 0, 1, 0, 1),
 (50, 48, '广告分类', 'admin/ad_cat/index', NULL, NULL, NULL, 1, 0, 1, 0, 0),
 (52, 241, '会员列表', 'admin/member/index', 'auth/member', 'index', 'fa-adjust', NULL, 1, 1, 1, 0),
-(53, 241, '会员组管理', 'admin/group/index', 'auth/group', 'index', 'fa-adjust', NULL, 1, 1, 1, 0),
+(53, 241, '会员组管理', 'admin/group/index', 'auth/groups', 'index', 'fa-adjust', NULL, 1, 1, 1, 0),
 (57, 55, '商城设置', 'admin/mall/config', NULL, NULL, NULL, 1, 0, 0, 0, 0),
 (67, 239, '注册协议设置', 'admin/system/terms', NULL, NULL, NULL, 1, 0, 0, 0, 0),
 (68, 239, '站点设置', 'sadmin/config/index', NULL, NULL, NULL, 1, 0, 0, 0, 0),
@@ -2435,7 +2480,39 @@ INSERT INTO `abf_menus` (`id`, `parent_id`, `name`, `url`, `class`, `method`, `i
 (265, 242, '数据恢复', 'admin/database/restore', 'dashboard/database', 'restore', NULL, 2, 1, 1, 1, 2),
 (272, 259, '频道管理', NULL, 'archive/channel', 'index', 'fa-bullhorn', NULL, 1, 1, 0, 0),
 (284, 282, '角色管理', NULL, 'auth/role', 'index', 'fa-adjust', NULL, 1, 1, 0, 100),
-(282, 239, '管理员设置', NULL, '', '', 'fa-users', NULL, 1, 1, 0, 100);
+(282, 239, '管理员设置', NULL, '', '', 'fa-users', NULL, 1, 1, 0, 100),
+(285, 239, '系统日志', NULL, 'console/console', 'index', 'fa-calendar', NULL, 1, 1, 0, 100),
+(286, 283, '添加管理员', NULL, 'auth/admin', 'add', 'fa-adjust', NULL, 0, 1, 0, 100),
+(287, 283, '审核管理员', NULL, 'auth/admin', 'audit', 'fa-adjust', NULL, 0, 1, 0, 100),
+(288, 283, '编辑管理员', NULL, 'auth/admin', 'edit', 'fa-adjust', NULL, 0, 1, 0, 100),
+(289, 283, '删除管理员', NULL, 'auth/admin', 'delete', 'fa-adjust', NULL, 0, 1, 0, 100),
+(290, 284, '添加角色', NULL, 'auth/role', 'add', 'fa-adjust', NULL, 0, 1, 0, 100),
+(291, 284, '编辑角色', NULL, 'auth/role', 'edit', 'fa-adjust', NULL, 0, 1, 0, 100),
+(292, 284, '删除角色', NULL, 'auth/role', 'delete', 'fa-adjust', NULL, 0, 1, 0, 100),
+(293, 9, '添加菜单权限', NULL, 'dashboard/menu', 'add', 'fa-adjust', NULL, 0, 1, 0, 100),
+(294, 9, '编辑菜单权限', NULL, 'dashboard/menu', 'edit', 'fa-adjust', NULL, 0, 1, 0, 100),
+(295, 9, '删除菜单权限', NULL, 'dashboard/menu', 'delete', 'fa-adjust', NULL, 0, 1, 0, 100),
+(296, 52, '添加会员', NULL, 'auth/member', 'add', 'fa-adjust', NULL, 0, 1, 0, 100),
+(297, 52, '审核会员', NULL, 'auth/member', 'audit', 'fa-adjust', NULL, 0, 1, 0, 100),
+(298, 52, '编辑会员', NULL, 'auth/member', 'edit', 'fa-adjust', NULL, 0, 1, 0, 100),
+(299, 52, '删除会员', NULL, 'auth/member', 'delete', 'fa-adjust', NULL, 0, 1, 0, 100),
+(300, 272, '添加频道', NULL, 'archive/channel', 'add', 'fa-adjust', NULL, 0, 1, 0, 100),
+(301, 272, '编辑频道', NULL, 'archive/channel', 'edit', 'fa-adjust', NULL, 0, 1, 0, 100),
+(302, 272, '删除频道', NULL, 'archive/channel', 'delete', 'fa-adjust', NULL, 0, 1, 0, 100),
+(303, 13, '添加单页', NULL, 'dashboard/page', 'add', 'fa-adjust', NULL, 0, 1, 0, 100),
+(304, 13, '编辑单页', NULL, 'dashboard/page', 'edit', 'fa-adjust', NULL, 0, 1, 0, 100),
+(305, 13, '删除单页', NULL, 'dashboard/page', 'delete', 'fa-adjust', NULL, 0, 1, 0, 100),
+(306, 28, '添加链接', NULL, 'dashboard/link', 'add', 'fa-adjust', NULL, 0, 1, 0, 100),
+(307, 28, '编辑链接', NULL, 'dashboard/link', 'edit', 'fa-adjust', NULL, 0, 1, 0, 100),
+(308, 28, '删除链接', NULL, 'dashboard/link', 'delete', 'fa-adjust', NULL, 0, 1, 0, 100),
+(309, 259, '文章分类', NULL, 'archive/category', 'index', 'fa-adjust', NULL, 0, 1, 0, 100),
+(310, 259, '添加文章分类', NULL, 'archive/category', 'add', 'fa-adjust', NULL, 0, 1, 0, 100),
+(311, 259, '编辑文章分类', NULL, 'archive/category', 'edit', 'fa-adjust', NULL, 0, 1, 0, 100),
+(312, 259, '删除文章分类', NULL, 'archive/category', 'delete', 'fa-adjust', NULL, 0, 1, 0, 100),
+(313, 259, '文章列表', NULL, 'archive/archive', 'index', 'fa-adjust', NULL, 0, 1, 0, 100),
+(314, 259, '添加文章', NULL, 'archive/archive', 'add', 'fa-adjust', NULL, 0, 1, 0, 100),
+(315, 259, '编辑文章', NULL, 'archive/archive', 'edit', 'fa-adjust', NULL, 0, 1, 0, 100),
+(316, 259, '删除文章', NULL, 'archive/archive', 'delete', 'fa-adjust', NULL, 0, 1, 0, 100);
 
 -- --------------------------------------------------------
 
@@ -2443,6 +2520,7 @@ INSERT INTO `abf_menus` (`id`, `parent_id`, `name`, `url`, `class`, `method`, `i
 -- 表的结构 `abf_migrations`
 --
 
+DROP TABLE IF EXISTS `abf_migrations`;
 CREATE TABLE IF NOT EXISTS `abf_migrations` (
   `version` bigint(20) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
@@ -2460,18 +2538,19 @@ INSERT INTO `abf_migrations` (`version`) VALUES
 -- 表的结构 `abf_navigations`
 --
 
+DROP TABLE IF EXISTS `abf_navigations`;
 CREATE TABLE IF NOT EXISTS `abf_navigations` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
   `navigation_cat_id` int(11) NOT NULL DEFAULT '0',
   `name` varchar(255) DEFAULT NULL,
   `link` varchar(255) DEFAULT NULL,
   `published` tinyint(1) NOT NULL DEFAULT '0',
-  `parent_id` int(11) unsigned NOT NULL DEFAULT '0',
+  `parent_id` int(11) UNSIGNED NOT NULL DEFAULT '0',
   `sort_order` int(11) NOT NULL DEFAULT '0',
   `keywords` varchar(40) DEFAULT NULL,
   `represent` varchar(40) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=66 ;
+) ENGINE=MyISAM AUTO_INCREMENT=66 DEFAULT CHARSET=utf8;
 
 --
 -- 转存表中的数据 `abf_navigations`
@@ -2505,18 +2584,19 @@ INSERT INTO `abf_navigations` (`id`, `navigation_cat_id`, `name`, `link`, `publi
 -- 表的结构 `abf_navigation_cats`
 --
 
+DROP TABLE IF EXISTS `abf_navigation_cats`;
 CREATE TABLE IF NOT EXISTS `abf_navigation_cats` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `cat_key` varchar(20) DEFAULT NULL COMMENT '类别标识',
   `name` varchar(100) DEFAULT NULL COMMENT '类别名称',
   `published` tinyint(1) NOT NULL DEFAULT '1' COMMENT '发布，0不显示，1显示',
   `descript` varchar(200) DEFAULT NULL COMMENT '描述',
-  `sub_count` int(11) unsigned DEFAULT '0' COMMENT '该类别的条目数',
+  `sub_count` int(11) UNSIGNED DEFAULT '0' COMMENT '该类别的条目数',
   PRIMARY KEY (`id`),
   KEY `published` (`published`),
   KEY `mapping` (`descript`),
   KEY `name` (`name`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 --
 -- 转存表中的数据 `abf_navigation_cats`
@@ -2533,14 +2613,15 @@ INSERT INTO `abf_navigation_cats` (`id`, `cat_key`, `name`, `published`, `descri
 -- 表的结构 `abf_pages`
 --
 
+DROP TABLE IF EXISTS `abf_pages`;
 CREATE TABLE IF NOT EXISTS `abf_pages` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
   `title` varchar(40) DEFAULT NULL COMMENT '主题',
-  `page_cat_id` int(11) unsigned DEFAULT '0' COMMENT '分类编号',
-  `published` tinyint(1) unsigned NOT NULL DEFAULT '1' COMMENT '状态：0，不发布；1，发布',
-  `hits` smallint(6) unsigned NOT NULL DEFAULT '0' COMMENT '点击次数',
+  `page_cat_id` int(11) UNSIGNED DEFAULT '0' COMMENT '分类编号',
+  `published` tinyint(1) UNSIGNED NOT NULL DEFAULT '1' COMMENT '状态：0，不发布；1，发布',
+  `hits` smallint(6) UNSIGNED NOT NULL DEFAULT '0' COMMENT '点击次数',
   `content` text COMMENT '内容',
-  `created` int(11) unsigned DEFAULT NULL COMMENT '创建时间',
+  `created` int(11) UNSIGNED DEFAULT NULL COMMENT '创建时间',
   `image` varchar(255) DEFAULT NULL COMMENT '图像附件',
   `keywords` varchar(40) DEFAULT NULL COMMENT '关键词',
   `description` varchar(100) DEFAULT NULL COMMENT '描述信息',
@@ -2548,7 +2629,14 @@ CREATE TABLE IF NOT EXISTS `abf_pages` (
   KEY `page_cat_id` (`page_cat_id`),
   KEY `published` (`published`),
   KEY `title` (`title`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=9 ;
+) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
+
+--
+-- 转存表中的数据 `abf_pages`
+--
+
+INSERT INTO `abf_pages` (`id`, `title`, `page_cat_id`, `published`, `hits`, `content`, `created`, `image`, `keywords`, `description`) VALUES
+(9, 'test', NULL, 1, 0, 'test', 1460600117, NULL, 'test', 'test');
 
 -- --------------------------------------------------------
 
@@ -2556,21 +2644,22 @@ CREATE TABLE IF NOT EXISTS `abf_pages` (
 -- 表的结构 `abf_page_cats`
 --
 
+DROP TABLE IF EXISTS `abf_page_cats`;
 CREATE TABLE IF NOT EXISTS `abf_page_cats` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `parent_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '上级编号',
+  `parent_id` int(11) UNSIGNED NOT NULL DEFAULT '0' COMMENT '上级编号',
   `name` varchar(45) NOT NULL DEFAULT '' COMMENT '目录名',
   `created` int(11) NOT NULL COMMENT '创建时间',
   `sort_order` smallint(6) NOT NULL DEFAULT '0' COMMENT '排序编号',
   `published` tinyint(4) NOT NULL DEFAULT '1' COMMENT '1启用，0不启用',
-  `sub_count` smallint(6) unsigned NOT NULL DEFAULT '0' COMMENT '所有下级分类的信息总数目',
+  `sub_count` smallint(6) UNSIGNED NOT NULL DEFAULT '0' COMMENT '所有下级分类的信息总数目',
   `mapping` varchar(40) DEFAULT '' COMMENT '目录路径',
   PRIMARY KEY (`id`),
   KEY `parent_id` (`parent_id`),
   KEY `name` (`name`),
   KEY `published` (`published`),
   KEY `mapping` (`mapping`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -2578,6 +2667,7 @@ CREATE TABLE IF NOT EXISTS `abf_page_cats` (
 -- 表的结构 `abf_role`
 --
 
+DROP TABLE IF EXISTS `abf_role`;
 CREATE TABLE IF NOT EXISTS `abf_role` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `group_name` varchar(50) DEFAULT NULL,
@@ -2585,7 +2675,7 @@ CREATE TABLE IF NOT EXISTS `abf_role` (
   `published` tinyint(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`),
   UNIQUE KEY `group_name` (`group_name`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='用户分组表' AUTO_INCREMENT=5 ;
+) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COMMENT='用户分组表';
 
 --
 -- 转存表中的数据 `abf_role`
@@ -2593,7 +2683,7 @@ CREATE TABLE IF NOT EXISTS `abf_role` (
 
 INSERT INTO `abf_role` (`id`, `group_name`, `description`, `published`) VALUES
 (1, 'admin', '超级管理员', 1),
-(2, 'members', '管理员', 1);
+(5, 'demo', '演示用户', 1);
 
 -- --------------------------------------------------------
 
@@ -2601,14 +2691,58 @@ INSERT INTO `abf_role` (`id`, `group_name`, `description`, `published`) VALUES
 -- 表的结构 `abf_sessions`
 --
 
+DROP TABLE IF EXISTS `abf_sessions`;
 CREATE TABLE IF NOT EXISTS `abf_sessions` (
   `id` varchar(40) NOT NULL,
   `ip_address` varchar(45) NOT NULL,
-  `timestamp` int(10) unsigned NOT NULL DEFAULT '0',
+  `timestamp` int(10) UNSIGNED NOT NULL DEFAULT '0',
   `data` blob NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `orz_sessions_timestamp` (`timestamp`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+  KEY `abf_sessions_timestamp` (`timestamp`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- 转存表中的数据 `abf_sessions`
+--
+
+INSERT INTO `abf_sessions` (`id`, `ip_address`, `timestamp`, `data`) VALUES
+('36f703989406a75c36ac0726f845068ad4f9084e', '127.0.0.1', 1460448647, 0x5f5f63695f6c6173745f726567656e65726174657c693a313436303434383435343b7665726966797c733a343a2270757275223b6c6f63616c5f61646d696e5f696e666f7c613a353a7b733a383a226964656e74697479223b733a353a2261646d696e223b733a383a22757365726e616d65223b733a353a2261646d696e223b733a353a22656d61696c223b733a31383a227765626d6173746572406f727a6d2e6e6574223b733a373a22757365725f6964223b733a313a2231223b733a31343a226f6c645f6c6173745f6c6f67696e223b733a31303a2231343630333637323133223b7d),
+('9a68faa0d4938b16396d0573c7094e1f6e9586ec', '127.0.0.1', 1460449067, 0x5f5f63695f6c6173745f726567656e65726174657c693a313436303434383736373b7665726966797c733a343a2270757275223b6c6f63616c5f61646d696e5f696e666f7c613a353a7b733a383a226964656e74697479223b733a353a2261646d696e223b733a383a22757365726e616d65223b733a353a2261646d696e223b733a353a22656d61696c223b733a31383a227765626d6173746572406f727a6d2e6e6574223b733a373a22757365725f6964223b733a313a2231223b733a31343a226f6c645f6c6173745f6c6f67696e223b733a31303a2231343630333637323133223b7d),
+('2df964c54610bbb8f8b22d84001c3f8459439484', '127.0.0.1', 1460449069, 0x5f5f63695f6c6173745f726567656e65726174657c693a313436303434393036383b7665726966797c733a343a2270757275223b6c6f63616c5f61646d696e5f696e666f7c613a353a7b733a383a226964656e74697479223b733a353a2261646d696e223b733a383a22757365726e616d65223b733a353a2261646d696e223b733a353a22656d61696c223b733a31383a227765626d6173746572406f727a6d2e6e6574223b733a373a22757365725f6964223b733a313a2231223b733a31343a226f6c645f6c6173745f6c6f67696e223b733a31303a2231343630333637323133223b7d),
+('0c59a50df580626f4ff6aea16cecf793673ad4e9', '127.0.0.1', 1460449335, 0x5f5f63695f6c6173745f726567656e65726174657c693a313436303434393036393b7665726966797c733a343a2270757275223b6c6f63616c5f61646d696e5f696e666f7c613a353a7b733a383a226964656e74697479223b733a353a2261646d696e223b733a383a22757365726e616d65223b733a353a2261646d696e223b733a353a22656d61696c223b733a31383a227765626d6173746572406f727a6d2e6e6574223b733a373a22757365725f6964223b733a313a2231223b733a31343a226f6c645f6c6173745f6c6f67696e223b733a31303a2231343630333637323133223b7d),
+('575863952894e92be0ad437bbb6d598847adfb5b', '127.0.0.1', 1460449553, 0x5f5f63695f6c6173745f726567656e65726174657c693a313436303434393338373b7665726966797c733a343a2270757275223b6c6f63616c5f61646d696e5f696e666f7c613a353a7b733a383a226964656e74697479223b733a353a2261646d696e223b733a383a22757365726e616d65223b733a353a2261646d696e223b733a353a22656d61696c223b733a31383a227765626d6173746572406f727a6d2e6e6574223b733a373a22757365725f6964223b733a313a2231223b733a31343a226f6c645f6c6173745f6c6f67696e223b733a31303a2231343630333637323133223b7d),
+('21ba3d5cfd7510f4d76e66c285aec92322f71dc7', '127.0.0.1', 1460450070, 0x5f5f63695f6c6173745f726567656e65726174657c693a313436303434393737313b7665726966797c733a343a2270757275223b6c6f63616c5f61646d696e5f696e666f7c613a353a7b733a383a226964656e74697479223b733a353a2261646d696e223b733a383a22757365726e616d65223b733a353a2261646d696e223b733a353a22656d61696c223b733a31383a227765626d6173746572406f727a6d2e6e6574223b733a373a22757365725f6964223b733a313a2231223b733a31343a226f6c645f6c6173745f6c6f67696e223b733a31303a2231343630333637323133223b7d6c6f63616c5f757365725f696e666f7c733a303a22223b),
+('64e89980e60ec58d4e7c3fc90616149f4d159980', '127.0.0.1', 1460450387, 0x5f5f63695f6c6173745f726567656e65726174657c693a313436303435303039333b7665726966797c733a343a2270757275223b6c6f63616c5f61646d696e5f696e666f7c613a353a7b733a383a226964656e74697479223b733a353a2261646d696e223b733a383a22757365726e616d65223b733a353a2261646d696e223b733a353a22656d61696c223b733a31383a227765626d6173746572406f727a6d2e6e6574223b733a373a22757365725f6964223b733a313a2231223b733a31343a226f6c645f6c6173745f6c6f67696e223b733a31303a2231343630333637323133223b7d6c6f63616c5f757365725f696e666f7c733a303a22223b),
+('46ffaa7bb9b6e6a03bc84a6ab6213e7ec3f35397', '127.0.0.1', 1460450678, 0x5f5f63695f6c6173745f726567656e65726174657c693a313436303435303433393b7665726966797c733a343a2270757275223b6c6f63616c5f61646d696e5f696e666f7c613a353a7b733a383a226964656e74697479223b733a353a2261646d696e223b733a383a22757365726e616d65223b733a353a2261646d696e223b733a353a22656d61696c223b733a31383a227765626d6173746572406f727a6d2e6e6574223b733a373a22757365725f6964223b733a313a2231223b733a31343a226f6c645f6c6173745f6c6f67696e223b733a31303a2231343630333637323133223b7d6c6f63616c5f757365725f696e666f7c733a303a22223b),
+('e32594128d7469602251eebae365ae189034c669', '127.0.0.1', 1460451108, 0x5f5f63695f6c6173745f726567656e65726174657c693a313436303435303833353b7665726966797c733a343a2270757275223b6c6f63616c5f61646d696e5f696e666f7c613a353a7b733a383a226964656e74697479223b733a353a2261646d696e223b733a383a22757365726e616d65223b733a353a2261646d696e223b733a353a22656d61696c223b733a31383a227765626d6173746572406f727a6d2e6e6574223b733a373a22757365725f6964223b733a313a2231223b733a31343a226f6c645f6c6173745f6c6f67696e223b733a31303a2231343630333637323133223b7d6c6f63616c5f757365725f696e666f7c733a303a22223b737563636573737c733a31383a22e794a8e688b7e5908de4b88de5ad98e59ca8223b5f5f63695f766172737c613a313a7b733a373a2273756363657373223b733a333a226f6c64223b7d),
+('eb5900d9036039b1ada34619f5246cecefc87bb6', '127.0.0.1', 1460451403, 0x5f5f63695f6c6173745f726567656e65726174657c693a313436303435313134383b7665726966797c733a343a2270757275223b6c6f63616c5f61646d696e5f696e666f7c613a353a7b733a383a226964656e74697479223b733a353a2261646d696e223b733a383a22757365726e616d65223b733a353a2261646d696e223b733a353a22656d61696c223b733a31383a227765626d6173746572406f727a6d2e6e6574223b733a373a22757365725f6964223b733a313a2231223b733a31343a226f6c645f6c6173745f6c6f67696e223b733a31303a2231343630333637323133223b7d6c6f63616c5f757365725f696e666f7c733a303a22223b6572726f727c733a303a22223b5f5f63695f766172737c613a313a7b733a353a226572726f72223b733a333a226f6c64223b7d),
+('aa056adac79be2d55a4afefad25bb382ddc6f41c', '127.0.0.1', 1460453357, 0x5f5f63695f6c6173745f726567656e65726174657c693a313436303435333038323b7665726966797c733a343a2270757275223b6c6f63616c5f61646d696e5f696e666f7c613a353a7b733a383a226964656e74697479223b733a353a2261646d696e223b733a383a22757365726e616d65223b733a353a2261646d696e223b733a353a22656d61696c223b733a31383a227765626d6173746572406f727a6d2e6e6574223b733a373a22757365725f6964223b733a313a2231223b733a31343a226f6c645f6c6173745f6c6f67696e223b733a31303a2231343630333637323133223b7d6c6f63616c5f757365725f696e666f7c733a303a22223b6572726f727c733a31383a22e794a8e688b7e5908de4b88de5ad98e59ca8223b5f5f63695f766172737c613a313a7b733a353a226572726f72223b733a333a226f6c64223b7d),
+('d5e324c184277016a2025339d447fbb0ae069699', '127.0.0.1', 1460453930, 0x5f5f63695f6c6173745f726567656e65726174657c693a313436303435333632393b7665726966797c733a343a2270757275223b6c6f63616c5f61646d696e5f696e666f7c613a353a7b733a383a226964656e74697479223b733a353a2261646d696e223b733a383a22757365726e616d65223b733a353a2261646d696e223b733a353a22656d61696c223b733a31383a227765626d6173746572406f727a6d2e6e6574223b733a373a22757365725f6964223b733a313a2231223b733a31343a226f6c645f6c6173745f6c6f67696e223b733a31303a2231343630333637323133223b7d6c6f63616c5f757365725f696e666f7c733a303a22223b),
+('878bc897deff42322b0dd1e0a49d378cef3c6214', '127.0.0.1', 1460454275, 0x5f5f63695f6c6173745f726567656e65726174657c693a313436303435333938333b7665726966797c733a343a2270757275223b6c6f63616c5f61646d696e5f696e666f7c613a353a7b733a383a226964656e74697479223b733a353a2261646d696e223b733a383a22757365726e616d65223b733a353a2261646d696e223b733a353a22656d61696c223b733a31383a227765626d6173746572406f727a6d2e6e6574223b733a373a22757365725f6964223b733a313a2231223b733a31343a226f6c645f6c6173745f6c6f67696e223b733a31303a2231343630333637323133223b7d6c6f63616c5f757365725f696e666f7c733a303a22223b5f5f63695f766172737c613a313a7b733a353a226572726f72223b733a333a226f6c64223b7d6572726f727c733a303a22223b),
+('c14fdb2dfd9a4fa4c6285406c05e79b1db0703f4', '127.0.0.1', 1460454315, 0x5f5f63695f6c6173745f726567656e65726174657c693a313436303435343239343b7665726966797c733a343a2270757275223b6c6f63616c5f61646d696e5f696e666f7c613a353a7b733a383a226964656e74697479223b733a353a2261646d696e223b733a383a22757365726e616d65223b733a353a2261646d696e223b733a353a22656d61696c223b733a31383a227765626d6173746572406f727a6d2e6e6574223b733a373a22757365725f6964223b733a313a2231223b733a31343a226f6c645f6c6173745f6c6f67696e223b733a31303a2231343630333637323133223b7d6c6f63616c5f757365725f696e666f7c733a303a22223b5f5f63695f766172737c613a313a7b733a353a226572726f72223b733a333a226f6c64223b7d6572726f727c733a303a22223b),
+('2fb40ead311382151ce415d9d550a3170175f4e5', '127.0.0.1', 1460531048, 0x5f5f63695f6c6173745f726567656e65726174657c693a313436303533313030333b6572726f727c4e3b6c6f63616c5f757365725f696e666f7c613a353a7b733a383a226964656e74697479223b733a383a226c69757869616e67223b733a383a22757365726e616d65223b733a383a226c69757869616e67223b733a353a22656d61696c223b733a31363a226c7869616e67636e403136332e636f6d223b733a373a22757365725f6964223b733a323a223137223b733a31343a226f6c645f6c6173745f6c6f67696e223b733a31303a2231343630343530313635223b7d),
+('696cb5a9bb97633ac67b405b460326c596a18fd3', '127.0.0.1', 1460553852, 0x5f5f63695f6c6173745f726567656e65726174657c693a313436303535333536353b7665726966797c733a343a2262637765223b6c6f63616c5f61646d696e5f696e666f7c613a353a7b733a383a226964656e74697479223b733a353a2261646d696e223b733a383a22757365726e616d65223b733a353a2261646d696e223b733a353a22656d61696c223b733a31383a227765626d6173746572406f727a6d2e6e6574223b733a373a22757365725f6964223b733a313a2231223b733a31343a226f6c645f6c6173745f6c6f67696e223b733a31303a2231343630343438343730223b7d),
+('161c2d969bd9ee47fa9d4bae73439a963b045066', '127.0.0.1', 1460554040, 0x5f5f63695f6c6173745f726567656e65726174657c693a313436303535333836393b7665726966797c733a343a2262637765223b6c6f63616c5f61646d696e5f696e666f7c613a353a7b733a383a226964656e74697479223b733a353a2261646d696e223b733a383a22757365726e616d65223b733a353a2261646d696e223b733a353a22656d61696c223b733a31383a227765626d6173746572406f727a6d2e6e6574223b733a373a22757365725f6964223b733a313a2231223b733a31343a226f6c645f6c6173745f6c6f67696e223b733a31303a2231343630343438343730223b7d6572726f727c4e3b6c6f63616c5f757365725f696e666f7c733a303a22223b),
+('d9f85e86fd8bbb793afa7cf5469cccc31fe49769', '127.0.0.1', 1460597723, 0x5f5f63695f6c6173745f726567656e65726174657c693a313436303539373432323b7665726966797c733a343a226d736f77223b6c6f63616c5f61646d696e5f696e666f7c613a353a7b733a383a226964656e74697479223b733a353a2261646d696e223b733a383a22757365726e616d65223b733a353a2261646d696e223b733a353a22656d61696c223b733a31383a227765626d6173746572406f727a6d2e6e6574223b733a373a22757365725f6964223b733a313a2231223b733a31343a226f6c645f6c6173745f6c6f67696e223b733a31303a2231343630353937343838223b7d737563636573737c733a32313a22e69bb4e696b0e695b0e68daee68890e58a9fefbc81223b5f5f63695f766172737c613a313a7b733a373a2273756363657373223b733a333a226f6c64223b7d),
+('d1d8cbc06036d061022634b1fa37915ea10e248f', '127.0.0.1', 1460598024, 0x5f5f63695f6c6173745f726567656e65726174657c693a313436303539373732343b7665726966797c733a343a2264637876223b6c6f63616c5f61646d696e5f696e666f7c613a353a7b733a383a226964656e74697479223b733a353a2261646d696e223b733a383a22757365726e616d65223b733a353a2261646d696e223b733a353a22656d61696c223b733a31383a227765626d6173746572406f727a6d2e6e6574223b733a373a22757365725f6964223b733a313a2231223b733a31343a226f6c645f6c6173745f6c6f67696e223b733a31303a2231343630353937373336223b7d737563636573737c733a32313a22e4bf9de5ad98e695b0e68daee68890e58a9fe38082223b5f5f63695f766172737c613a313a7b733a373a2273756363657373223b733a333a226e6577223b7d),
+('4c7fc84a7f91e0549daff801e93e15e3c92b2c8a', '127.0.0.1', 1460598282, 0x5f5f63695f6c6173745f726567656e65726174657c693a313436303539383032353b7665726966797c733a343a2264637876223b6c6f63616c5f61646d696e5f696e666f7c613a353a7b733a383a226964656e74697479223b733a353a2261646d696e223b733a383a22757365726e616d65223b733a353a2261646d696e223b733a353a22656d61696c223b733a31383a227765626d6173746572406f727a6d2e6e6574223b733a373a22757365725f6964223b733a313a2231223b733a31343a226f6c645f6c6173745f6c6f67696e223b733a31303a2231343630353937373336223b7d),
+('8610749cb15e45e229c18a2c4d72422a80c3ea7a', '127.0.0.1', 1460598204, 0x5f5f63695f6c6173745f726567656e65726174657c693a313436303539383133323b7665726966797c733a343a2262657161223b6c6f63616c5f61646d696e5f696e666f7c613a353a7b733a383a226964656e74697479223b733a343a2264656d6f223b733a383a22757365726e616d65223b733a343a2264656d6f223b733a353a22656d61696c223b733a31333a2264656d6f406f727a6d2e6e6574223b733a373a22757365725f6964223b733a323a223134223b733a31343a226f6c645f6c6173745f6c6f67696e223b733a31303a2231343630353937373439223b7d),
+('1ae0e7975610362de29c9a87f11a261dffacd6f5', '127.0.0.1', 1460598660, 0x5f5f63695f6c6173745f726567656e65726174657c693a313436303539383336373b7665726966797c733a343a2264637876223b6c6f63616c5f61646d696e5f696e666f7c613a353a7b733a383a226964656e74697479223b733a353a2261646d696e223b733a383a22757365726e616d65223b733a353a2261646d696e223b733a353a22656d61696c223b733a31383a227765626d6173746572406f727a6d2e6e6574223b733a373a22757365725f6964223b733a313a2231223b733a31343a226f6c645f6c6173745f6c6f67696e223b733a31303a2231343630353937373336223b7d),
+('20425faa565e730d627f5dc0a8dee25afac38fc6', '127.0.0.1', 1460598581, 0x5f5f63695f6c6173745f726567656e65726174657c693a313436303539383538303b7665726966797c733a343a2262657161223b6c6f63616c5f61646d696e5f696e666f7c613a353a7b733a383a226964656e74697479223b733a343a2264656d6f223b733a383a22757365726e616d65223b733a343a2264656d6f223b733a353a22656d61696c223b733a31333a2264656d6f406f727a6d2e6e6574223b733a373a22757365725f6964223b733a323a223134223b733a31343a226f6c645f6c6173745f6c6f67696e223b733a31303a2231343630353937373439223b7d),
+('a7375371b7065dfe6afb820fe21e35b892d434b8', '127.0.0.1', 1460598952, 0x5f5f63695f6c6173745f726567656e65726174657c693a313436303539383637353b7665726966797c733a343a2264637876223b6c6f63616c5f61646d696e5f696e666f7c613a353a7b733a383a226964656e74697479223b733a353a2261646d696e223b733a383a22757365726e616d65223b733a353a2261646d696e223b733a353a22656d61696c223b733a31383a227765626d6173746572406f727a6d2e6e6574223b733a373a22757365725f6964223b733a313a2231223b733a31343a226f6c645f6c6173745f6c6f67696e223b733a31303a2231343630353937373336223b7d),
+('21ec385708a35c5b347a51b5372e4e223cd97065', '127.0.0.1', 1460599092, 0x5f5f63695f6c6173745f726567656e65726174657c693a313436303539383935363b7665726966797c733a343a2262657161223b6c6f63616c5f61646d696e5f696e666f7c613a353a7b733a383a226964656e74697479223b733a343a2264656d6f223b733a383a22757365726e616d65223b733a343a2264656d6f223b733a353a22656d61696c223b733a31333a2264656d6f406f727a6d2e6e6574223b733a373a22757365725f6964223b733a323a223134223b733a31343a226f6c645f6c6173745f6c6f67696e223b733a31303a2231343630353937373439223b7d),
+('2ab93d208df631e8c50275af6e04cc6794ac6f87', '127.0.0.1', 1460599165, 0x5f5f63695f6c6173745f726567656e65726174657c693a313436303539393131363b7665726966797c733a343a2264637876223b6c6f63616c5f61646d696e5f696e666f7c613a353a7b733a383a226964656e74697479223b733a353a2261646d696e223b733a383a22757365726e616d65223b733a353a2261646d696e223b733a353a22656d61696c223b733a31383a227765626d6173746572406f727a6d2e6e6574223b733a373a22757365725f6964223b733a313a2231223b733a31343a226f6c645f6c6173745f6c6f67696e223b733a31303a2231343630353937373336223b7d),
+('60abc38ebcdcc9e5943d965884f9f8420a502bfb', '127.0.0.1', 1460599897, 0x5f5f63695f6c6173745f726567656e65726174657c693a313436303539393631363b7665726966797c733a343a2264637876223b6c6f63616c5f61646d696e5f696e666f7c613a353a7b733a383a226964656e74697479223b733a353a2261646d696e223b733a383a22757365726e616d65223b733a353a2261646d696e223b733a353a22656d61696c223b733a31383a227765626d6173746572406f727a6d2e6e6574223b733a373a22757365725f6964223b733a313a2231223b733a31343a226f6c645f6c6173745f6c6f67696e223b733a31303a2231343630353937373336223b7d),
+('0e4c5fa95d5b1ba6001b96f188d5e7ae01ee1159', '127.0.0.1', 1460600220, 0x5f5f63695f6c6173745f726567656e65726174657c693a313436303539393933333b7665726966797c733a343a2264637876223b6c6f63616c5f61646d696e5f696e666f7c613a353a7b733a383a226964656e74697479223b733a353a2261646d696e223b733a383a22757365726e616d65223b733a353a2261646d696e223b733a353a22656d61696c223b733a31383a227765626d6173746572406f727a6d2e6e6574223b733a373a22757365725f6964223b733a313a2231223b733a31343a226f6c645f6c6173745f6c6f67696e223b733a31303a2231343630353937373336223b7d),
+('5a2e0b21a1f90c3dc92ff4b5e4838c818a57c035', '127.0.0.1', 1460600546, 0x5f5f63695f6c6173745f726567656e65726174657c693a313436303630303234353b7665726966797c733a343a2264637876223b6c6f63616c5f61646d696e5f696e666f7c613a353a7b733a383a226964656e74697479223b733a353a2261646d696e223b733a383a22757365726e616d65223b733a353a2261646d696e223b733a353a22656d61696c223b733a31383a227765626d6173746572406f727a6d2e6e6574223b733a373a22757365725f6964223b733a313a2231223b733a31343a226f6c645f6c6173745f6c6f67696e223b733a31303a2231343630353937373336223b7d),
+('6d4ba950d7f48dfae9043d83184e18052a417ed8', '127.0.0.1', 1460600510, 0x5f5f63695f6c6173745f726567656e65726174657c693a313436303630303439363b7665726966797c733a343a2262657161223b6c6f63616c5f61646d696e5f696e666f7c613a353a7b733a383a226964656e74697479223b733a343a2264656d6f223b733a383a22757365726e616d65223b733a343a2264656d6f223b733a353a22656d61696c223b733a31333a2264656d6f406f727a6d2e6e6574223b733a373a22757365725f6964223b733a323a223134223b733a31343a226f6c645f6c6173745f6c6f67696e223b733a31303a2231343630353937373439223b7d6572726f727c733a3131383a22e696b9e6b395e88a82e782b9e69caae59ca8e88a82e782b9e8a1a8e5ae9ae4b989e68896e8a2abe7a681e794a82ce9bb98e8aea4e4b88de58581e8aeb8e8aebfe997aee4bda0e6b2a1e69c89e79bb8e585b3e69d83e99990efbc8ce8afb7e88194e7b3bbe7b3bbe7bb9fe7aea1e79086e59198e38082223b5f5f63695f766172737c613a313a7b733a353a226572726f72223b733a333a226f6c64223b7d),
+('2e188a269ced9124d66de0f2c697e5af941bf211', '127.0.0.1', 1460600836, 0x5f5f63695f6c6173745f726567656e65726174657c693a313436303630303534383b7665726966797c733a343a2264637876223b6c6f63616c5f61646d696e5f696e666f7c613a353a7b733a383a226964656e74697479223b733a353a2261646d696e223b733a383a22757365726e616d65223b733a353a2261646d696e223b733a353a22656d61696c223b733a31383a227765626d6173746572406f727a6d2e6e6574223b733a373a22757365725f6964223b733a313a2231223b733a31343a226f6c645f6c6173745f6c6f67696e223b733a31303a2231343630353937373336223b7d),
+('b1c4e2dba39b80e8b315184f6c3f33617b122d3d', '127.0.0.1', 1460602271, 0x5f5f63695f6c6173745f726567656e65726174657c693a313436303630313937303b7665726966797c733a343a2264637876223b6c6f63616c5f61646d696e5f696e666f7c613a353a7b733a383a226964656e74697479223b733a353a2261646d696e223b733a383a22757365726e616d65223b733a353a2261646d696e223b733a353a22656d61696c223b733a31383a227765626d6173746572406f727a6d2e6e6574223b733a373a22757365725f6964223b733a313a2231223b733a31343a226f6c645f6c6173745f6c6f67696e223b733a31303a2231343630353937373336223b7d),
+('c1ca0997c82584505075be30397bc4d9e8e1ba35', '127.0.0.1', 1460602315, 0x5f5f63695f6c6173745f726567656e65726174657c693a313436303630323237313b7665726966797c733a343a2264637876223b6c6f63616c5f61646d696e5f696e666f7c613a353a7b733a383a226964656e74697479223b733a353a2261646d696e223b733a383a22757365726e616d65223b733a353a2261646d696e223b733a353a22656d61696c223b733a31383a227765626d6173746572406f727a6d2e6e6574223b733a373a22757365725f6964223b733a313a2231223b733a31343a226f6c645f6c6173745f6c6f67696e223b733a31303a2231343630353937373336223b7d),
+('b7d3250ad92f4a9967ddd64a69e10765285c908b', '127.0.0.1', 1460603063, 0x5f5f63695f6c6173745f726567656e65726174657c693a313436303630323830323b7665726966797c733a343a2264637876223b6c6f63616c5f61646d696e5f696e666f7c613a353a7b733a383a226964656e74697479223b733a353a2261646d696e223b733a383a22757365726e616d65223b733a353a2261646d696e223b733a353a22656d61696c223b733a31383a227765626d6173746572406f727a6d2e6e6574223b733a373a22757365725f6964223b733a313a2231223b733a31343a226f6c645f6c6173745f6c6f67696e223b733a31303a2231343630353937373336223b7d),
+('5b8f34bd6c297079eb5dae6643c2657ffacd3138', '127.0.0.1', 1460603299, 0x5f5f63695f6c6173745f726567656e65726174657c693a313436303630333133393b7665726966797c733a343a2264637876223b6c6f63616c5f61646d696e5f696e666f7c613a353a7b733a383a226964656e74697479223b733a353a2261646d696e223b733a383a22757365726e616d65223b733a353a2261646d696e223b733a353a22656d61696c223b733a31383a227765626d6173746572406f727a6d2e6e6574223b733a373a22757365725f6964223b733a313a2231223b733a31343a226f6c645f6c6173745f6c6f67696e223b733a31303a2231343630353937373336223b7d),
+('86eed269e87623e9040e4bb509fc945c550e33a2', '127.0.0.1', 1460603732, 0x5f5f63695f6c6173745f726567656e65726174657c693a313436303630333436363b7665726966797c733a343a2264637876223b6c6f63616c5f61646d696e5f696e666f7c613a353a7b733a383a226964656e74697479223b733a353a2261646d696e223b733a383a22757365726e616d65223b733a353a2261646d696e223b733a353a22656d61696c223b733a31383a227765626d6173746572406f727a6d2e6e6574223b733a373a22757365725f6964223b733a313a2231223b733a31343a226f6c645f6c6173745f6c6f67696e223b733a31303a2231343630353937373336223b7d),
+('66ca0f2089133a0fbec3848091080d1a433cc5cd', '127.0.0.1', 1460604066, 0x5f5f63695f6c6173745f726567656e65726174657c693a313436303630333737343b7665726966797c733a343a2264637876223b6c6f63616c5f61646d696e5f696e666f7c613a353a7b733a383a226964656e74697479223b733a353a2261646d696e223b733a383a22757365726e616d65223b733a353a2261646d696e223b733a353a22656d61696c223b733a31383a227765626d6173746572406f727a6d2e6e6574223b733a373a22757365725f6964223b733a313a2231223b733a31343a226f6c645f6c6173745f6c6f67696e223b733a31303a2231343630353937373336223b7d),
+('12b84b67aa1deb3bea5fc43f376470247b72144b', '127.0.0.1', 1460604251, 0x5f5f63695f6c6173745f726567656e65726174657c693a313436303630343131343b7665726966797c733a343a2264637876223b6c6f63616c5f61646d696e5f696e666f7c613a353a7b733a383a226964656e74697479223b733a353a2261646d696e223b733a383a22757365726e616d65223b733a353a2261646d696e223b733a353a22656d61696c223b733a31383a227765626d6173746572406f727a6d2e6e6574223b733a373a22757365725f6964223b733a313a2231223b733a31343a226f6c645f6c6173745f6c6f67696e223b733a31303a2231343630353937373336223b7d);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

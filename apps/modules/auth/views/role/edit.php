@@ -52,11 +52,12 @@
 			<div class="form-group">
 				<label for="user_account_attributes_location" class="col-md-2 control-label">角色权限</label>
 				<div class="col-md-8 user-access">
-					<label class="checkbox-inline">
-						<input class="px" type="checkbox" value="checkbox" id="checkall" />
-						<span class="lbl">全选</span>
-					</label>
-					<ol></ol>
+					<li>
+						<label class="checkbox-inline">
+							<input class="px" type="checkbox" value="checkbox" id="checkall" />
+							<span class="lbl">全选</span>
+						</label>
+					</li>
 					<?php echo $info_list; ?>
 				</div>
 			</div>
@@ -75,27 +76,7 @@ $(function(){
 		$("input:checkbox").prop("checked", $(this).prop("checked"));
 	});
 });
-
-function check(id,obj) {
-	$(".sub_access_" + id).prop("checked",$(obj).prop("checked"));
-}
-
-function checkrelevance(pid, obj) {
-	if(true === $(obj).prop("checked")){
-		$(".access_" + pid).prop("checked",true);
-	}else{
-		var _sub = 0;
-		$(".sub_access_" + pid).each(function() {
-			if($(this).prop("checked")){
-				_sub ++;
-			}
-		});
-		//console.log(_sub);
-		if(_sub >= 1){
-			$(".access_" + pid).prop("checked",true);
-		}else{
-			$(".access_" + pid).prop("checked",false);
-		}
-	}
+function check(obj) {
+	$(obj).parent().parent().next("ol").find("input:checkbox").prop("checked",$(obj).prop("checked"));
 }
 </script>

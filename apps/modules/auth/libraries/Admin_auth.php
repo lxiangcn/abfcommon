@@ -8,7 +8,7 @@ defined('BASEPATH') or die('No direct script access allowed');
  * @copyright Copyright (c) 2010 - 2016, Orzm.net
  * @license http://opensource.org/licenses/GPL-3.0 GPL-3.0
  * @link http://orzm.net
- * @version 2016-03-21 16:39:04
+ * @version 2016-04-14 09:57:52
  * @author Alex Liu<lxiangcn@gmail.com>
  */
 class Admin_auth {
@@ -186,6 +186,7 @@ class Admin_auth {
      * @return boolean
      */
     public function is_admin() {
+        $user_id = null;
         if ($this->session->userdata($this->local_user_info)) {
             $user_id = $this->session->userdata($this->local_user_info)['user_id'];
         }

@@ -650,13 +650,9 @@ if (!function_exists('show_access')) {
                 }
             }
             // $i = $v[$level_field];
-            if (0 == $v->parent_id) {
-                $tmpStr .= '<label class="checkbox-inline"><input name="ids[]" type="checkbox" value="' . $v->id . '" ' . $checked . ' class="px access_' . $v->id . '" onclick="check(\'' . $v->id . '\',this)">';
-            } else {
-                $tmpStr .= '<label class="checkbox-inline"><input name="ids[]" type="checkbox" value="' . $v->id . '" ' . $checked . ' class="px sub_access_' . $v->parent_id . '" onclick="checkrelevance(\'' . $v->parent_id . '\',this)">';
-            }
+            $tmpStr .= '<li><label class="checkbox-inline"><input name="ids[]" type="checkbox" value="' . $v->id . '" ' . $checked . ' class="px" onclick="check(this)">';
             $tmpStr .= '<span class="lbl">' . $v->$node_name_field . '</span>';
-            $tmpStr .= '</label>';
+            $tmpStr .= '</label></li>';
             if (count($v->$children_array_name) > 0) {
                 $tmpStr .= '<ol>';
                 $tmpStr .= show_access($v->$children_array_name, $accesss_arr, $node_name_field, $children_array_name, $level_field);

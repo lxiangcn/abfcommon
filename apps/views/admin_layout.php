@@ -15,6 +15,7 @@
 <link href="<?php echo theme_url('pixel/stylesheets/widgets.min.css'); ?>" rel="stylesheet" type="text/css">
 <link href="<?php echo theme_url('pixel/stylesheets/rtl.min.css'); ?>" rel="stylesheet" type="text/css">
 <link href="<?php echo theme_url('pixel/stylesheets/themes.min.css'); ?>" rel="stylesheet" type="text/css">
+<link href="<?php echo theme_url('pixel/stylesheets/app.min.css'); ?>" rel="stylesheet" type="text/css">
 <!--[if lt IE 9]>
 <script src="<?php echo theme_url('pixel/javascripts/ie.min.js'); ?>"></script>
 <![endif]-->

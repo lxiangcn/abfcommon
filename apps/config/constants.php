@@ -6,9 +6,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  *
  * @var unknown
  */
-define ( 'ABFCOMMON_NAME', 'ABF Common' );
-define ( 'ABFCOMMON_VERSION', 'V2.4.1.1055' );
-define ( 'ABFCOMMON_BUILDTIME', '20150625' );
+define('ABFCOMMON_NAME', 'ABF Common');
+define('ABFCOMMON_VERSION', 'V3.0.0');
+define('ABFCOMMON_BUILDTIME', '20160415');
 
 /*
 |--------------------------------------------------------------------------
@@ -22,7 +22,7 @@ define ( 'ABFCOMMON_BUILDTIME', '20150625' );
 | user, PHP under CGI with Apache suEXEC, etc.).  Octal values should
 | always be used to set the mode correctly.
 |
-*/
+ */
 define('FILE_READ_MODE', 0644);
 define('FILE_WRITE_MODE', 0666);
 define('DIR_READ_MODE', 0755);
@@ -35,7 +35,7 @@ define('DIR_WRITE_MODE', 0755);
 |
 | These modes are used when working with fopen()/popen()
 |
-*/
+ */
 
 define('FOPEN_READ', 'rb');
 define('FOPEN_READ_WRITE', 'r+b');
@@ -55,7 +55,7 @@ define('FOPEN_READ_WRITE_CREATE_STRICT', 'x+b');
 | error_reporting is disabled, the backtrace will not display, regardless
 | of this setting
 |
-*/
+ */
 define('SHOW_DEBUG_BACKTRACE', TRUE);
 
 /*
@@ -82,7 +82,7 @@ define('SHOW_DEBUG_BACKTRACE', TRUE);
 |    Bash scripting:
 |       http://tldp.org/LDP/abs/html/exitcodes.html
 |
-*/
+ */
 define('EXIT_SUCCESS', 0); // no errors
 define('EXIT_ERROR', 1); // generic error
 define('EXIT_CONFIG', 3); // configuration error

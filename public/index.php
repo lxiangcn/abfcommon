@@ -58,7 +58,7 @@ switch (strtolower(gethostname())) {
 case 'i-nxqx1cvw':
     define('ENVIRONMENT', 'production');
     break;
-case 'i-n9etv7ms':
+case 'ay130314163527903602':
     define('ENVIRONMENT', 'testing');
     break;
 default:

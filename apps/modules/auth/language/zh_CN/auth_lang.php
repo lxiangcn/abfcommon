@@ -130,34 +130,26 @@ $lang['create_user_validation_email_label']            = '邮箱';
 $lang['create_user_validation_phone1_label']           = 'First Part of Phone';
 $lang['create_user_validation_phone2_label']           = 'Second Part of Phone';
 $lang['create_user_validation_phone3_label']           = 'Third Part of Phone';
-$lang['create_user_validation_company_label']          = 'Company Name';
 $lang['create_user_validation_password_label']         = '密码';
 $lang['create_user_validation_password_confirm_label'] = '确认密码';
 $lang['create_user_login_label']                       = '已有用户，去登录';
 $lang['user_register_title']                           = "User Register";
 
 // Edit User
-$lang['edit_user_heading']                           = 'Edit User';
-$lang['edit_user_subheading']                        = 'Please enter the user\'s information below.';
-$lang['edit_user_fname_label']                       = 'First Name:';
-$lang['edit_user_lname_label']                       = 'Last Name:';
-$lang['edit_user_company_label']                     = 'Company Name:';
-$lang['edit_user_email_label']                       = 'Email:';
-$lang['edit_user_phone_label']                       = 'Phone:';
-$lang['edit_user_password_label']                    = 'Password: (if changing password)';
-$lang['edit_user_password_confirm_label']            = 'Confirm Password: (if changing password)';
-$lang['edit_user_groups_heading']                    = 'Member of groups';
-$lang['edit_user_submit_btn']                        = 'Save User';
-$lang['edit_user_validation_fname_label']            = 'First Name';
-$lang['edit_user_validation_lname_label']            = 'Last Name';
-$lang['edit_user_validation_email_label']            = 'Email Address';
-$lang['edit_user_validation_phone1_label']           = 'First Part of Phone';
-$lang['edit_user_validation_phone2_label']           = 'Second Part of Phone';
-$lang['edit_user_validation_phone3_label']           = 'Third Part of Phone';
-$lang['edit_user_validation_company_label']          = 'Company Name';
-$lang['edit_user_validation_groups_label']           = 'Groups';
-$lang['edit_user_validation_password_label']         = 'Password';
-$lang['edit_user_validation_password_confirm_label'] = 'Password Confirmation';
+$lang['edit_user_heading']                   = '修改资料';
+$lang['edit_user_page_title']                = '修改资料';
+$lang['edit_user_subheading']                = '请输入用户资料信息';
+$lang['edit_user_username_label']            = '用户名:';
+$lang['edit_user_nickname_label']            = '昵称:';
+$lang['edit_user_email_label']               = '邮箱:';
+$lang['edit_user_phone_label']               = '联系方式:';
+$lang['edit_user_submit_btn']                = '提交';
+$lang['edit_user_validation_username_label'] = '用户名';
+$lang['edit_user_validation_nickname_label'] = '昵称';
+$lang['edit_user_validation_email_label']    = '邮箱';
+$lang['edit_user_gender_label']              = '性别';
+$lang['edit_user_gender_label_m']            = '男';
+$lang['edit_user_gender_label_f']            = '女';
 
 // Create Group
 $lang['create_group_title']                 = 'Create Group';
@@ -181,14 +173,15 @@ $lang['edit_group_validation_name_label'] = 'Group Name';
 $lang['edit_group_validation_desc_label'] = 'Description';
 
 // Change Password
-$lang['change_password_heading']                               = 'Change Password';
-$lang['change_password_old_password_label']                    = 'Old Password:';
-$lang['change_password_new_password_label']                    = 'New Password (at least %s characters long):';
-$lang['change_password_new_password_confirm_label']            = 'Confirm New Password:';
-$lang['change_password_submit_btn']                            = 'Change';
-$lang['change_password_validation_old_password_label']         = 'Old Password';
-$lang['change_password_validation_new_password_label']         = 'New Password';
-$lang['change_password_validation_new_password_confirm_label'] = 'Confirm New Password';
+$lang['change_password_page_title']                            = "User Change Password";
+$lang['change_password_heading']                               = '修改密码';
+$lang['change_password_old_password_label']                    = '原始密码:';
+$lang['change_password_new_password_label']                    = '新密码:';
+$lang['change_password_new_password_confirm_label']            = '确认新密码:';
+$lang['change_password_submit_btn']                            = '提交';
+$lang['change_password_validation_old_password_label']         = '原始密码';
+$lang['change_password_validation_new_password_label']         = '新密码';
+$lang['change_password_validation_new_password_confirm_label'] = '确认新密码';
 
 // Forgot Password
 $lang['forgot_password_heading']                 = '忘记密码';

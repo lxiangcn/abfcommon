@@ -9,7 +9,7 @@ defined('BASEPATH') or die('No direct script access allowed');
  * @copyright Copyright (c) 2010-2016, Orzm.net
  * @license http://opensource.org/licenses/GPL-3.0    GPL-3.0
  * @link http://orzm.net
- * @version 2016-04-12 17:44:21
+ * @version 2016-04-15 15:07:11
  * @author Alex Liu<lxiangcn@gmail.com>
  */
 
@@ -52,10 +52,6 @@ class Base_Controller extends MX_Controller {
     public function error($message, $addon_data = NULL) {
         $this->message_type = 'error';
         $this->message      = $message;
-
-        if (!isset($this->redirect) && !empty($_SERVER['HTTP_REFERER'])) {
-            $this->redirect = $_SERVER['HTTP_REFERER'];
-        }
 
         $this->response($addon_data);
     }

@@ -1303,7 +1303,7 @@ class Model_member_auth extends MY_Model {
      *
      */
     public function user($id = NULL) {
-        $id || $id = $this->session->userdata('user_id');
+        $id || $id = $this->get_user_id();
 
         $this->db->limit(1);
         $this->db->order_by('id', 'desc');

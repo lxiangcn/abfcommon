@@ -8,7 +8,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
  * @copyright Copyright (c) 2010 - 2016, Orzm.net
  * @license http://opensource.org/licenses/GPL-3.0    GPL-3.0
  * @link http://orzm.net
- * @version 2016-04-12 17:44:47
+ * @version 2016-04-19 16:34:03
  * @author Alex Liu<lxiangcn@gmail.com>
  */
 class User extends Other_Controller {
@@ -106,14 +106,23 @@ class User extends Other_Controller {
     }
 
     /**
+     * 用户中心
+     * @return view
+     */
+    function home() {
+        $data['page_title'] = 'User Home';
+        if (!$this->member_auth->is_login()) {
+            redirect('auth/user/login', 'refresh');
+        }
+        $this->_render_page("auth/home");
+    }
+
+    /**
      * change password
      * @return
      */
     function change_password() {
-        $data['title']      = "Change Password";
-        $data['page_title'] = 'Change Password';
-        $data['module']     = 'auth';
-        $data['view_file']  = 'change_password';
+        $data['page_title'] = __('change_password_page_title');
 
         $this->form_validation->set_rules('old', $this->lang->line('change_password_validation_old_password_label'), 'required');
         $this->form_validation->set_rules('new', $this->lang->line('change_password_validation_new_password_label'), 'required|min_length[' . $this->config->item('min_password_length', 'member_auth') . ']|max_length[' . $this->config->item('max_password_length', 'member_auth') . ']|matches[new_confirm]');
@@ -123,54 +132,29 @@ class User extends Other_Controller {
             redirect('auth/member/login', 'refresh');
         }
 
-        $user = $this->member_auth->user()->row();
+        $user = $this->member_auth->user();
 
         if ($this->form_validation->run() == false) {
             // display the form
             // set the flash data error message if there is one
-            $data['message'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('message');
-
-            $data['min_password_length'] = $this->config->item('min_password_length', 'member_auth');
-            $data['old_password']        = array(
-                'name' => 'old',
-                'id'   => 'old',
-                'type' => 'password',
-            );
-            $data['new_password'] = array(
-                'name'    => 'new',
-                'id'      => 'new',
-                'type'    => 'password',
-                'pattern' => '^.{' . $data['min_password_length'] . '}.*$',
-            );
-            $data['new_password_confirm'] = array(
-                'name'    => 'new_confirm',
-                'id'      => 'new_confirm',
-                'type'    => 'password',
-                'pattern' => '^.{' . $data['min_password_length'] . '}.*$',
-            );
-            $data['user_id'] = array(
-                'name'  => 'user_id',
-                'id'    => 'user_id',
-                'type'  => 'hidden',
-                'value' => $user->id,
-            );
+            $data['min_password_length']  = $this->config->item('min_password_length', 'member_auth');
+            $data['old_password']         = array('name' => 'old', 'id' => 'old', 'type' => 'password');
+            $data['new_password']         = array('name' => 'new', 'id' => 'new', 'type' => 'password', 'pattern' => '^.{' . $data['min_password_length'] . '}.*$');
+            $data['new_password_confirm'] = array('name' => 'new_confirm', 'id' => 'new_confirm', 'type' => 'password', 'pattern' => '^.{' . $data['min_password_length'] . '}.*$');
+            $data['user_id']              = array('name' => 'user_id', 'id' => 'user_id', 'type' => 'hidden', 'value' => $user->id);
 
             // render
-            // $this->_render_page('auth/change_password', $data);
-
-            echo Modules::run('templates', $data);
+            $this->_render_page('auth/change_password', $data);
         } else {
             $identity = $this->session->userdata('identity');
-
-            $change = $this->member_auth->change_password($identity, $this->input->post('old'), $this->input->post('new'));
-
+            $change   = $this->member_auth->change_password($identity, $this->input->post('old'), $this->input->post('new'));
             if ($change) {
                 // if the password was successfully changed
-                $this->session->set_flashdata('message', $this->member_auth->messages());
+                $this->success($this->member_auth->messages());
                 $this->logout();
             } else {
-                $this->session->set_flashdata('message', $this->member_auth->errors());
-                redirect('auth/change_password', 'refresh');
+                $this->error($this->member_auth->errors());
+                redirect('auth/user/change_password');
             }
         }
     }
@@ -261,31 +245,15 @@ class User extends Other_Controller {
                 // set the flash data error message if there is one
                 $data['message'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('message');
 
-                $data['min_password_length'] = $this->config->item('min_password_length', 'member_auth');
-                $data['new_password']        = array(
-                    'name'    => 'new',
-                    'id'      => 'new',
-                    'type'    => 'password',
-                    'pattern' => '^.{' . $data['min_password_length'] . '}.*$',
-                );
-                $data['new_password_confirm'] = array(
-                    'name'    => 'new_confirm',
-                    'id'      => 'new_confirm',
-                    'type'    => 'password',
-                    'pattern' => '^.{' . $data['min_password_length'] . '}.*$',
-                );
-                $data['user_id'] = array(
-                    'name'  => 'user_id',
-                    'id'    => 'user_id',
-                    'type'  => 'hidden',
-                    'value' => $user->id,
-                );
-                $data['csrf'] = $this->_get_csrf_nonce();
-                $data['code'] = $code;
+                $data['min_password_length']  = $this->config->item('min_password_length', 'member_auth');
+                $data['new_password']         = array('name' => 'new', 'id' => 'new', 'type' => 'password', 'pattern' => '^.{' . $data['min_password_length'] . '}.*$');
+                $data['new_password_confirm'] = array('name' => 'new_confirm', 'id' => 'new_confirm', 'type' => 'password', 'pattern' => '^.{' . $data['min_password_length'] . '}.*$');
+                $data['user_id']              = array('name' => 'user_id', 'id' => 'user_id', 'type' => 'hidden', 'value' => $user->id);
+                $data['csrf']                 = $this->_get_csrf_nonce();
+                $data['code']                 = $code;
 
                 // render
-                // $this->_render_page('auth/reset_password', $data);
-                echo Modules::run('templates', $data);
+                $this->_render_page('auth/reset_password', $data);
             } else {
                 // do we have a valid request?
                 if ($this->_valid_csrf_nonce() === FALSE || $user->id != $this->input->post('user_id')) {
@@ -433,35 +401,24 @@ class User extends Other_Controller {
 
     /**
      * edit a user
-     * @param  [type] $id [description]
-     * @return [type]     [description]
+     * @return view
      */
-    function edit_user($id) {
-        $data['title']      = "Edit User";
-        $data['page_title'] = 'Edit User';
-        $data['module']     = 'auth';
-        $data['view_file']  = 'edit_user';
+    function edit_user() {
+        $data['page_title'] = __('edit_user_page_title');
 
-        if (!$this->member_auth->logged_in() || (!$this->member_auth->is_admin() && !($this->member_auth->user()->row()->id == $id))) {
+        if (!$this->member_auth->is_login()) {
             redirect('auth', 'refresh');
         }
 
-        $user          = $this->member_auth->user($id)->row();
-        $groups        = $this->member_auth->groups()->result_array();
-        $currentGroups = $this->member_auth->get_users_groups($id)->result();
+        $user          = $this->member_auth->user();
+        $groups        = $this->member_auth->groups();
+        $currentGroups = $this->member_auth->get_users_groups($this->member_auth->get_user_id())->result();
 
         // validate form input
-        $this->form_validation->set_rules('first_name', $this->lang->line('edit_user_validation_fname_label'), 'required');
-        $this->form_validation->set_rules('last_name', $this->lang->line('edit_user_validation_lname_label'), 'required');
-        $this->form_validation->set_rules('phone', $this->lang->line('edit_user_validation_phone_label'), 'required');
-        $this->form_validation->set_rules('company', $this->lang->line('edit_user_validation_company_label'), 'required');
+        $this->form_validation->set_rules('nickname', $this->lang->line('edit_user_validation_nickname_label'), 'required');
+        $this->form_validation->set_rules('email', $this->lang->line('edit_user_validation_email_label'), 'required');
 
         if (isset($_POST) && !empty($_POST)) {
-            // do we have a valid request?
-            if ($this->_valid_csrf_nonce() === FALSE || $id != $this->input->post('id')) {
-                show_error($this->lang->line('error_csrf'));
-            }
-
             // update the password if it was posted
             if ($this->input->post('password')) {
                 $this->form_validation->set_rules('password', $this->lang->line('edit_user_validation_password_label'), 'required|min_length[' . $this->config->item('min_password_length', 'member_auth') . ']|max_length[' . $this->config->item('max_password_length', 'member_auth') . ']|matches[password_confirm]');
@@ -470,10 +427,9 @@ class User extends Other_Controller {
 
             if ($this->form_validation->run() === TRUE) {
                 $data = array(
-                    'first_name' => $this->input->post('first_name'),
-                    'last_name'  => $this->input->post('last_name'),
-                    'company'    => $this->input->post('company'),
-                    'phone'      => $this->input->post('phone'),
+                    'nickname' => $this->input->post('nickname'),
+                    'email'    => $this->input->post('email'),
+                    'gender'   => $this->input->post('gender'),
                 );
 
                 // update the password if it was posted
@@ -481,38 +437,11 @@ class User extends Other_Controller {
                     $data['password'] = $this->input->post('password');
                 }
 
-                // Only allow updating groups if user is admin
-                if ($this->member_auth->is_admin()) {
-                    // Update the groups user belongs to
-                    $groupData = $this->input->post('groups');
-
-                    if (isset($groupData) && !empty($groupData)) {
-
-                        $this->member_auth->remove_from_group('', $id);
-
-                        foreach ($groupData as $grp) {
-                            $this->member_auth->add_to_group($grp, $id);
-                        }
-                    }
-                }
-
                 // check to see if we are updating the user
-                if ($this->member_auth->update($user->id, $data)) {
+                if ($this->member_auth->save($data, $this->member_auth->get_user_id())) {
                     // redirect them back to the admin page if admin, or to the base url if non admin
                     $this->session->set_flashdata('message', $this->member_auth->messages());
-                    if ($this->member_auth->is_admin()) {
-                        redirect('auth', 'refresh');
-                    } else {
-                        redirect('/', 'refresh');
-                    }
-                } else {
-                    // redirect them back to the admin page if admin, or to the base url if non admin
-                    $this->session->set_flashdata('message', $this->member_auth->errors());
-                    if ($this->member_auth->is_admin()) {
-                        redirect('auth', 'refresh');
-                    } else {
-                        redirect('/', 'refresh');
-                    }
+                    redirect("auth/user/home");
                 }
             }
         }
@@ -528,42 +457,22 @@ class User extends Other_Controller {
         $data['groups']        = $groups;
         $data['currentGroups'] = $currentGroups;
 
-        $data['first_name'] = array(
-            'name'  => 'first_name',
-            'id'    => 'first_name',
-            'type'  => 'text',
-            'value' => $this->form_validation->set_value('first_name', $user->first_name),
-        );
-        $data['last_name'] = array(
-            'name'  => 'last_name',
-            'id'    => 'last_name',
-            'type'  => 'text',
-            'value' => $this->form_validation->set_value('last_name', $user->last_name),
-        );
-        $data['company'] = array(
-            'name'  => 'company',
-            'id'    => 'company',
-            'type'  => 'text',
-            'value' => $this->form_validation->set_value('company', $user->company),
-        );
-        $data['phone'] = array(
-            'name'  => 'phone',
-            'id'    => 'phone',
-            'type'  => 'text',
-            'value' => $this->form_validation->set_value('phone', $user->phone),
-        );
-        $data['password'] = array(
-            'name' => 'password',
-            'id'   => 'password',
-            'type' => 'password',
-        );
-        $data['password_confirm'] = array(
-            'name' => 'password_confirm',
-            'id'   => 'password_confirm',
-            'type' => 'password',
-        );
+        $data['username'] = $user->username;
 
-        echo Modules::run('templates', $data);
+        $data['nickname'] = array(
+            'name'  => 'nickname',
+            'id'    => 'nickname',
+            'type'  => 'text',
+            'value' => $this->form_validation->set_value('nickname', $user->nickname),
+        );
+        $data['email'] = array(
+            'name'  => 'email',
+            'id'    => 'email',
+            'type'  => 'text',
+            'value' => $this->form_validation->set_value('email', $user->email),
+        );
+        $data['gender'] = $user->gender;
+        $this->_render_page('edit_user', $data);
     }
 
     // create a new group

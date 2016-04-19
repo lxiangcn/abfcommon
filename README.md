@@ -28,5 +28,3 @@
 ├system   //codeigniter目录,-使用的codeingiter基础组件,如需扩展可到apps/core目录调整
 └vendor   //目录,提供给composer工具进行模块可拆卸配置(类似于java里面的ant/maven等构建工具)
 ```
-
-#testing

@@ -1,7 +1,5 @@
 <?php
-if (!defined('BASEPATH')) {
-    exit('No direct script access allowed');
-}
+defined('BASEPATH') or die('No direct script access allowed');
 
 /**
  * FileName : common_helper.php

@@ -8,7 +8,7 @@ defined('BASEPATH') or die('No direct script access allowed');
  * @copyright Copyright (c) 2010-2016, Orzm.net
  * @license http://opensource.org/licenses/GPL-3.0    GPL-3.0
  * @link http://orzm.net
- * @version 2016-03-30 15:47:51
+ * @version 2016-04-20 09:56:31
  * @author Alex Liu<lxiangcn@gmail.com>
  */
 class Developer extends MX_Controller {
@@ -20,17 +20,17 @@ class Developer extends MX_Controller {
      * @return none
      */
     public function index() {
-        if ($this->input->is_cli_request()) {
-            $this->load->library('migration');
-            $this->load->config('migration');
-            if (!$this->migration->current()) {
-                echo '[ERROR]: ' . $this->migration->error_string();
-            } else {
-                echo 'Migration(s) done : ' . $this->config->item('migration_version') . PHP_EOL;
-            }
+        //if ($this->input->is_cli_request()) {
+        $this->load->library('migration');
+        $this->load->config('migration');
+        if (!$this->migration->current()) {
+            echo '[ERROR]: ' . $this->migration->error_string();
         } else {
-            echo '[ERROR]: You don\'t have permission for this action';
+            echo 'Migration(s) done : ' . $this->config->item('migration_version') . PHP_EOL;
         }
+        //} else {
+        //    echo '[ERROR]: You don\'t have permission for this action';
+        //}
     }
 
     /**

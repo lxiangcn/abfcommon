@@ -7,8 +7,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  * @var unknown
  */
 define('ABFCOMMON_NAME', 'ABF Common');
-define('ABFCOMMON_VERSION', 'V3.0.0');
-define('ABFCOMMON_BUILDTIME', '20160415');
+define('ABFCOMMON_VERSION', 'V3.0.1');
+define('ABFCOMMON_BUILDTIME', '20160419');
 
 /*
 |--------------------------------------------------------------------------

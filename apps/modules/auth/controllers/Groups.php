@@ -6,18 +6,19 @@ defined('BASEPATH') or die('No direct script access allowed');
  * abfcommon
  *
  * @package Groups
- * @copyright Copyright (c) 2010-2016, Orzm.net
- * @license http://opensource.org/licenses/GPL-3.0    GPL-3.0
  * @link http://orzm.net
- * @version 2016-04-11 10:41:58
  * @author Alex Liu<lxiangcn@gmail.com>
+ * @version V3.0.1
+ * @modifiedtime 2016-04-29 13:16:36
+ * @copyright Copyright (c) 2010-2016, Orzm.net
+ * @license http://opensource.org/licenses/GPL-3.0 GPL-3.0
  */
 
 class Groups extends Admin_Controller {
 
     function __Construct() {
         parent::__construct();
-        $this->load->model('Model_groups', 'groups', true);
+        $this->load->model('model_groups', 'groups', true);
     }
 
     /**
@@ -44,7 +45,7 @@ class Groups extends Admin_Controller {
     public function add() {
         $data = array();
         if ($this->input->post()) {
-            $this->form_validation->set_rules('group_name', '名称', 'trim|required');
+            $this->form_validation->set_rules('group_name', '用户组名称', 'trim|required|callback_add_group_name_check');
             $this->form_validation->set_rules('description', '描述', 'trim|required');
             if ($this->form_validation->run() === true) {
                 $items['group_name']  = $this->input->post('group_name', true);
@@ -73,7 +74,7 @@ class Groups extends Admin_Controller {
             $this->error('参数错误');
         }
         if ($this->input->post()) {
-            $this->form_validation->set_rules('group_name', '名称', 'trim|required');
+            $this->form_validation->set_rules('group_name', '用户组名称', 'trim|required|callback_group_name_check[' . $id . ']');
             $this->form_validation->set_rules('description', '描述', 'trim|required');
             if ($this->form_validation->run() === true) {
                 $items['group_name']  = $this->input->post('group_name', true);
@@ -115,6 +116,41 @@ class Groups extends Admin_Controller {
         } else {
             $this->error("不存在的数据！");
             redirect(site_url('auth/groups/index/' . $page_no));
+        }
+    }
+
+    /**
+     * 添加
+     * 用户分组名检测
+     *
+     * @param string $group_name
+     * @return boolean
+     */
+    function add_group_name_check($group_name) {
+        $result = $this->groups->get_by_name($group_name);
+        if ($result) {
+            $this->form_validation->set_message('add_group_name_check', "%s已经存在!");
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    /**
+     * 编辑
+     * 检测用户是否存在
+     *
+     * @param string $group_name
+     * @param int $id
+     * @return type
+     */
+    function group_name_check($group_name, $id) {
+        $result = $this->groups->get_by_id_name($group_name, $id);
+        if ($result) {
+            $this->form_validation->set_message('group_name_check', "%s已经存在!");
+            return false;
+        } else {
+            return true;
         }
     }
 }

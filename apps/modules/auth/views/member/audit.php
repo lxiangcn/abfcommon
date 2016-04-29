@@ -4,9 +4,9 @@
         <a href="<?php echo site_url("dashboard/welcome/index"); ?>">管理首页</a>
     </li>
     <li>
-        <a href="<?php echo site_url("auth/admin/index"); ?>">管理员管理</a>
+        <a href="<?php echo site_url("auth/member/index"); ?>">用户管理</a>
     </li>
-    <li class="active">审核</li>
+    <li class="active">用户审核</li>
 </ol>
 <!--/导航栏-->
 <!--内容-->
@@ -15,12 +15,12 @@
         <h3 class="panel-title">
             审核用户
             <span class="small pull-right">
-                <a href="<?php echo site_url("auth/admin/index"); ?>">返回列表</a>
+                <a href="<?php echo site_url("auth/member/index"); ?>">返回列表</a>
             </span>
         </h3>
     </div>
     <div class="panel-body">
-        <form novalidate="novalidate" method="post" class="simple_form form-horizontal" action="<?php echo site_url('auth/admin/audit/' . $data->id . '/' . $page_no); ?>" accept-charset="UTF-8">
+        <form novalidate="novalidate" method="post" class="simple_form form-horizontal" action="<?php echo site_url('auth/member/audit/' . $data->id . '/' . $page_no); ?>" accept-charset="UTF-8">
             <input type="hidden" name="<?php echo $csrf_name; ?>" value="<?php echo $csrf_token; ?>">
             <input type="hidden" name="role_id" value="<?php echo $gid; ?>">
             <div class="form-group">

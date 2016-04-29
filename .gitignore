@@ -1,3 +1,4 @@
 .gitignore
 .project
 public/data/logs/log-*.php
+public/data/logs/log-*.zip

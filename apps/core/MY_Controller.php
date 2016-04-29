@@ -136,7 +136,7 @@ abstract class Web_Controller extends MY_Controller {
         // 设置权限为 允许任何人可以访问
         $this->member_auth->checkAccess(2, $this->class, $this->method);
         // 设置不开启双模
-        $this->template->is_mobile_switch = FALSE;
+        $this->is_mobile = $this->agent->is_mobile();
         // 判断伪静态
         if ($this->data['config']['rewritetype']) {
             $this->config->set_item('index_page', ''); // 配置默认入口文件名为空
@@ -167,8 +167,6 @@ abstract class Admin_Controller extends MY_Controller {
             }
             redirect('auth/admin/login?ref=' . urlencode($this->uri->uri_string()));
         }
-        // 设置不开启双模
-        $this->template->is_mobile_switch = FALSE;
 
         // 设置权限为 拥有权限的人可以访问
         if (!$this->admin_auth->checkAccess(1, $this->class, $this->method)) {
@@ -197,8 +195,6 @@ class Other_Controller extends MY_Controller {
         // 设置权限为 允许任何人可以访问
         $this->member_auth->checkAccess(2, $this->class, $this->method);
         $this->data['globaltips'] = FALSE;
-        // 设置不开启双模
-        $this->template->is_mobile_switch = FALSE;
     }
 }
 

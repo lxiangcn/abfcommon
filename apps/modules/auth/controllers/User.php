@@ -391,7 +391,7 @@ class User extends Other_Controller {
 
             $data['username']         = array('name' => 'username', 'id' => 'username', 'type' => 'text', 'value' => $this->form_validation->set_value('username'));
             $data['nickname']         = array('name' => 'nickname', 'id' => 'nickname', 'type' => 'text', 'value' => $this->form_validation->set_value('nickname'));
-            $data['email']            = array('name' => 'email', 'id' => 'email', 'type' => 'text', 'value' => $his->form_validation->set_value('email'));
+            $data['email']            = array('name' => 'email', 'id' => 'email', 'type' => 'text', 'value' => $this->form_validation->set_value('email'));
             $data['password']         = array('name' => 'password', 'id' => 'password', 'type' => 'password', 'alue' => $this->form_validation->set_value('password'));
             $data['password_confirm'] = array('name' => 'password_confirm', 'id' => 'password_confirm', 'type' => 'assword', 'value' => $this->form_validation->set_value('password_confirm'));
 

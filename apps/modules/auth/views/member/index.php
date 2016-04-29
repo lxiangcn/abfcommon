@@ -6,17 +6,17 @@
 			&nbsp;&nbsp;管理首页
 		</a>
 	</li>
-	<li class="active">管理员管理</li>
+	<li class="active">用户管理</li>
 </ol>
 <!--/导航栏-->
 <!-- 内容 -->
 <div class="panel panel-default">
 	<div class="panel-heading">
-		<h3 class="panel-title">管理员列表</h3>
+		<h3 class="panel-title">用户列表</h3>
 	</div>
 	<div class="panel-body">
 		<ul class="note">
-
+			<a data-remote="true" class="btn btn-primary btn-sm" href="<?php echo site_url("auth/member/add/" . $page_no); ?>">添加用户</a>
 		</ul>
 		<table class="table table-hover table-condensed">
 			<colgroup>

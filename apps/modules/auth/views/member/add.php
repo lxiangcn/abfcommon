@@ -7,9 +7,9 @@
         </a>
     </li>
     <li>
-        <a href="<?php echo site_url("auth/admin/index"); ?>">管理员管理</a>
+        <a href="<?php echo site_url("auth/member/index"); ?>">用户管理</a>
     </li>
-    <li class="active">添加管理员</li>
+    <li class="active">添加用户</li>
 </ol>
 <!--/导航栏-->
 <!--内容-->
@@ -18,12 +18,12 @@
         <h3 class="panel-title">
             添加用户
             <span class="small pull-right">
-                <a href="<?php echo site_url("auth/admin/index"); ?>">返回列表</a>
+                <a href="<?php echo site_url("auth/member/index"); ?>">返回列表</a>
             </span>
         </h3>
     </div>
     <div class="panel-body">
-        <form novalidate="novalidate" method="post" class="simple_form form-horizontal" action="<?php echo site_url('auth/admin/add/' . $page_no); ?>" accept-charset="UTF-8">
+        <form novalidate="novalidate" method="post" class="simple_form form-horizontal" action="<?php echo site_url('auth/member/add/' . $page_no); ?>" accept-charset="UTF-8">
             <input type="hidden" name="<?php echo $csrf_name; ?>" value="<?php echo $csrf_token; ?>">
             <div class="form-group">
                 <label for="username" class="col-md-2 control-label">用户名</label>

@@ -191,6 +191,12 @@ class Admin extends Admin_Controller {
             $this->error("信息不存在。");
             redirect(site_url('auth/admin/index/' . $page_no));
         }
+
+        if (1 === $id) {
+            $this->error("非法操作。");
+            redirect(site_url('auth/admin/index/' . $page_no));
+        }
+
         $obj = $this->admin->read($id);
         if ($obj->id) {
             $this->load->library("auth/admin_auth");

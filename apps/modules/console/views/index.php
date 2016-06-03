@@ -29,19 +29,10 @@
             <div class="col-xs-2">
                 <input type="text" class="form-control" id="f_date" value="<?php echo date('Y-m-d', time()); ?>">
             </div>
-            <div class="col-xs-4">
+            <div class="col-xs-10">
                 <a onclick="huiber.readlog.readlog();" class="btn btn-danger">读取日志</a>
                 <a onclick="huiber.readlog.downlog();" class="btn btn-success">下载日志</a>
                 <a onclick="huiber.readlog.downerrorlog();" class="btn btn-success">下载错误日志</a>
-            </div>
-            <div class="col-xs-2">
-                <input type="text" placeholder="请输入日志内容查询" class="form-control" id="f_title">
-            </div>
-            <div class="col-xs-4">
-                <a onclick="huiber.readlog.toFilter()" class="btn btn-success">查找</a>
-                <a onclick="huiber.readlog.toReset()" class="btn btn-primary">清空</a>
-                <span class="m_ml40">共有记录<b id="log_sum_01">0</b>个</span>
-                <a class="btn btn-danger" onclick="huiber.readlog.showLogMonth()">数据库日志</a>
             </div>
         </div>
         <table class="mytable" id="logTab" style="width:100%;">

@@ -26,7 +26,7 @@
 				<col />
 				<col />
 				<col />
-				<col width='180' />
+				<col width='120' />
 			</colgroup>
 			<thead>
 				<tr>
@@ -55,7 +55,6 @@
 					</td>
 					<td>
 						<div aria-label="small button group" role="group" class="btn-group btn-group-sm">
-							<a href="<?php echo site_url('auth/admin/audit/' . $v->id . '/' . $page_no); ?>" class="btn btn-warning btn-sm">审核</a>
 							<a href="<?php echo site_url('auth/admin/edit/' . $v->id . '/' . $page_no); ?>" class="btn btn-primary btn-sm">编辑</a>
 							<?php if ($v->id != 1): ?>
 							<a rel="nofollow" data-method="delete" data-confirm="真的要删除吗？" class="btn btn-sm btn-danger" href="<?php echo site_url('auth/admin/delete/' . $v->id . '/' . $page_no); ?>">删除</a>

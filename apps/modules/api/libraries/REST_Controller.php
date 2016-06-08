@@ -1,18 +1,19 @@
-<?php defined('BASEPATH') or exit('No direct script access allowed');
+<?php
+
+defined('BASEPATH') or die('No direct script access allowed');
 
 /**
- * CodeIgniter Rest Controller
+ * abfcommon
  *
- * A fully RESTful server implementation for CodeIgniter using one library, one config file and one controller.
- *
- * @package REST_Controller
- * @subpackage        Libraries
- * @category        Libraries
- * @author            Phil Sturgeon, Chris Kacerguis
- * @license         MIT
- * @link            https://github.com/chriskacerguis/codeigniter-restserver
- * @version         3.0.0-pre
+ * @package abfcommon
+ * @subpackage REST_Controller
+ * @link http://orzm.net
+ * @author Alex Liu<lxiangcn@gmail.com>
+ * @version 3.0.0
+ * @copyright Copyright (c) 2010-2016, Orzm.net
+ * @license http://opensource.org/licenses/GPL-3.0 GPL-3.0
  */
+
 abstract class REST_Controller extends MX_Controller {
     /**
      * This defines the rest format.
@@ -194,11 +195,6 @@ abstract class REST_Controller extends MX_Controller {
     public function __construct($config = 'rest') {
         parent::__construct();
 
-        // Check to see if this is CI 3.x
-        if (explode('.', CI_VERSION, 2)[0] < 3) {
-            die('REST Server requires CodeIgniter 3.x');
-        }
-
         // Start the timer for how long the request takes
         $this->_start_rtime = microtime(TRUE);
 
@@ -377,13 +373,13 @@ abstract class REST_Controller extends MX_Controller {
         }
 
         // Check to see if this key has access to the requested controller.
-        if (config_item('rest_enable_keys') && $use_key && !empty($this->rest->key) && !$this->_check_access()) {
-            if (config_item('rest_enable_logging') && $log_method) {
-                $this->_log_request();
-            }
+        // if (config_item('rest_enable_keys') && $use_key && !empty($this->rest->key) && !$this->_check_access()) {
+        //     if (config_item('rest_enable_logging') && $log_method) {
+        //         $this->_log_request();
+        //     }
 
-            $this->response([config_item('rest_status_field_name') => FALSE, config_item('rest_message_field_name') => 'This API key does not have access to the requested controller.'], 401);
-        }
+        //     $this->response([config_item('rest_status_field_name') => FALSE, config_item('rest_message_field_name') => 'This API key does not have access to the requested controller.'], 401);
+        // }
 
         // Sure it exists, but can they do anything with it?
         if (!method_exists($this, $controller_method)) {
@@ -392,17 +388,17 @@ abstract class REST_Controller extends MX_Controller {
 
         // Doing key related stuff? Can only do it if they have a key right?
         if (config_item('rest_enable_keys') && !empty($this->rest->key)) {
-            // Check the limit
+            // 检查接口请求次数
             if (config_item('rest_enable_limits') && !$this->_check_limit($controller_method)) {
                 $response = [config_item('rest_status_field_name') => FALSE, config_item('rest_message_field_name') => 'This API key has reached the hourly limit for this method.'];
                 $this->response($response, 401);
             }
 
             // If no level is set use 0, they probably aren't using permissions
-            $level = isset($this->methods[$controller_method]['level']) ? $this->methods[$controller_method]['level'] : 0;
+            //$level = isset($this->methods[$controller_method]['level']) ? $this->methods[$controller_method]['level'] : 0;
 
             // If no level is set, or it is lower than/equal to the key's level
-            $authorized = $level <= $this->rest->level;
+            //$authorized = $level <= $this->rest->level;
 
             // IM TELLIN!
             if (config_item('rest_enable_logging') && $log_method) {
@@ -411,7 +407,7 @@ abstract class REST_Controller extends MX_Controller {
 
             // They don't have good enough perms
             $response = [config_item('rest_status_field_name') => FALSE, config_item('rest_message_field_name') => 'This API key does not have enough permissions.'];
-            $authorized || $this->response($response, 401);
+            //$authorized || $this->response($response, 401);
         }
 
         // No key stuff, but record that stuff is happening
@@ -890,7 +886,7 @@ abstract class REST_Controller extends MX_Controller {
 
         // check for wildcard flag for rules for classes
         if (!empty($this->overrides_array[$this->router->class]['*'])) {
-//check for class overides
+            //check for class overides
             // None auth override found, prepare nothing but send back a TRUE override flag
             if ($this->overrides_array[$this->router->class]['*'] == 'none') {
                 return TRUE;

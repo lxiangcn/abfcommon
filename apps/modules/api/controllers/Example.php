@@ -9,7 +9,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
  * all done with a hardcoded array.
  *
  * @package Example
- * @subpackage Rest Server
+ * @subpackage Example
  * @category Controller
  * @author Phil Sturgeon
  * @link http://philsturgeon.co.uk/code/
@@ -28,6 +28,7 @@ class Example extends REST_Controller {
         // Configure limits on our controller methods. Ensure
         // you have created the 'limits' table and enabled 'limits'
         // within application/config/rest.php
+        // api 请求次数 限制
         $this->methods['user_get']['limit']    = 500; // 500 requests per hour per user/key
         $this->methods['user_post']['limit']   = 100; // 100 requests per hour per user/key
         $this->methods['user_delete']['limit'] = 50; // 50 requests per hour per user/key

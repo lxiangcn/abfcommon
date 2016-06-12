@@ -268,7 +268,7 @@ $config['rest_enable_keys'] = true;
 | name of the db column that holds the api key value?
 |
  */
-$config['rest_key_column'] = 'key';
+$config['rest_key_column'] = 'token';
 
 /*
 |--------------------------------------------------------------------------
@@ -282,18 +282,6 @@ $config['rest_key_column'] = 'key';
 |
  */
 $config['rest_key_length'] = 40;
-
-/*
-|--------------------------------------------------------------------------
-| REST API Key Variable
-|--------------------------------------------------------------------------
-|
-| Which variable will provide us the API Key
-|
-| Default: X-API-KEY
-|
- */
-$config['rest_key_name'] = 'X-API-KEY';
 
 /*
 |--------------------------------------------------------------------------

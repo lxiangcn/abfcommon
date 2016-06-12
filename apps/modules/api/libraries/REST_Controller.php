@@ -287,7 +287,7 @@ abstract class REST_Controller extends MX_Controller {
         // Checking for keys? GET TO WorK!
         // Skip keys test for $config['auth_override_class_method']['class'['method'] = 'none'
         if (config_item('rest_enable_keys') && $this->auth_override !== TRUE) {
-            $this->_allow = $this->_detect_api_key();
+            $this->_allow = $this->_detect_api_token();
         }
 
         // only allow ajax requests
@@ -369,7 +369,10 @@ abstract class REST_Controller extends MX_Controller {
                 $this->_log_request();
             }
 
-            $this->response([config_item('rest_status_field_name') => FALSE, config_item('rest_message_field_name') => 'Invalid API Key ' . $this->rest->key], 403);
+            $this->response([
+                config_item('rest_status_field_name')  => FALSE,
+                config_item('rest_message_field_name') => 'Invalid API Token ' . $this->rest->token],
+                403);
         }
 
         // Check to see if this key has access to the requested controller.
@@ -685,57 +688,28 @@ abstract class REST_Controller extends MX_Controller {
      * @access protected
      * @return boolean
      */
-    protected function _detect_api_key() {
-        // Get the api key name variable set in the rest config file
-        $api_key_variable = config_item('rest_key_name');
+    protected function _detect_api_token() {
+        //key name
+        $key_name = config_item('rest_key_column');
 
-        // Work out the name of the SERVER entry based on config
-        $key_name = 'HTTP_' . strtoupper(str_replace('-', '_', $api_key_variable));
-
-        $this->rest->key           = NULL;
+        $this->rest->token         = NULL;
         $this->rest->level         = NULL;
         $this->rest->user_id       = NULL;
         $this->rest->ignore_limits = FALSE;
 
         // Find the key from server or arguments
-        if (($key = isset($this->_args[$api_key_variable]) ? $this->_args[$api_key_variable] : $this->input->server($key_name))) {
-            if (!($row = $this->rest->db->where(config_item('rest_key_column'), $key)->get(config_item('rest_keys_table'))->row())) {
+        if (($token = isset($this->_args[$key_name]) ? $this->_args[$key_name] : $this->input->server($key_name))) {
+            if (!($row = $this->rest->db->where(config_item('rest_key_column'), $token)->get(config_item('rest_keys_table'))->row())) {
                 return FALSE;
             }
 
-            $this->rest->key = $row->{config_item('rest_key_column')};
+            $this->rest->token = $row->{config_item('rest_key_column')};
 
             isset($row->user_id) && $this->rest->user_id             = $row->user_id;
             isset($row->level) && $this->rest->level                 = $row->level;
             isset($row->ignore_limits) && $this->rest->ignore_limits = $row->ignore_limits;
 
             $this->_apiuser = $row;
-
-            /*
-             * If "is private key" is enabled, compare the ip address with the list
-             * of valid ip addresses stored in the database.
-             */
-            if (!empty($row->is_private_key)) {
-                // Check for a list of valid ip addresses
-                if (isset($row->ip_addresses)) {
-                    // multiple ip addresses must be separated using a comma, explode and loop
-                    $list_ip_addresses = explode(",", $row->ip_addresses);
-                    $found_address     = FALSE;
-
-                    foreach ($list_ip_addresses as $ip_address) {
-                        if ($this->input->ip_address() == trim($ip_address)) {
-                            // there is a match, set the the value to TRUE and break out of the loop
-                            $found_address = TRUE;
-                            break;
-                        }
-                    }
-
-                    return $found_address;
-                } else {
-                    // There should be at least one IP address for this private key.
-                    return FALSE;
-                }
-            }
 
             return $row;
         }

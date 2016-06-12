@@ -103,11 +103,22 @@ class MY_Security extends CI_Security {
                 $path .= '/';
             }
             $path .= "{$class}/{$method}";
-            if (in_array($path, $this->ignored_controllers)) {
-                // set cookie for ignored actions
-                log_message('info', '[CSRF] : Current Access has been ignored : ' . $path);
-                return $this->csrf_set_cookie();
+
+            if (isset($this->ignored_controllers[$module]) && isset($this->ignored_controllers[$module][$class])) {
+                if (isset($this->ignored_controllers[$module][$class]["*"])) {
+                    log_message('info', '[CSRF] : Current Access has been ignored : ' . $path);
+                    return $this->csrf_set_cookie();
+                }
+                if (isset($this->ignored_controllers[$module][$class][$method]) && $this->ignored_controllers[$module][$class][$method] === "none") {
+                    log_message('info', '[CSRF] : Current Access has been ignored : ' . $path);
+                    return $this->csrf_set_cookie();
+                }
             }
+            // if (in_array($path, $this->ignored_controllers)) {
+            //     // set cookie for ignored actions
+            //     log_message('info', '[CSRF] : Current Access has been ignored : ' . $path);
+            //     return $this->csrf_set_cookie();
+            // }
         }
 
         // If it's not a POST request we will set the CSRF cookie
@@ -141,13 +152,15 @@ class MY_Security extends CI_Security {
 
     /**
      * getIgnoredControllers : get ignored controller list
-     *
+     * [POST]
      * @return array ignored controller list
      */
     private function getIgnoredControllers() {
-        return [
-            'home/home/index',
-            'filemanager/file/webupload',
-        ];
+        $getIgnoredControllers['home']['home']['index']            = 'none';
+        $getIgnoredControllers['filemanager']['file']['webupload'] = 'none';
+        $getIgnoredControllers['api']['example']['user']           = 'none';
+
+        return $getIgnoredControllers;
+        /*return [    'home/home/index',    'filemanager/file/webupload',    ];*/
     }
 }

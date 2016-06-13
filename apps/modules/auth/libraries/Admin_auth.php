@@ -31,7 +31,7 @@ class Admin_auth {
 
         //auto-login the user if they are remembered
         if (!$this->is_login() && get_cookie($this->config->item('identity_cookie_name', 'admin_auth')) && get_cookie($this->config->item('remember_cookie_name', 'admin_auth'))) {
-            $this->member_auth_model->login_remembered_user();
+            $this->admin_auth_model->login_remembered_user();
         }
 
         log_message('debug', "Auth Library Class Initialized");

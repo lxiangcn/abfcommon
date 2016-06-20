@@ -144,7 +144,7 @@ class Base_Controller extends MX_Controller {
      * @param  array  $params    additional paramaters
      * @return none
      */
-    protected function ajaxResponse($action, $versionNo, $result, $message = '', $params = array()) {
+    public function ajaxResponse($result, $message = '', $params = array(), $action, $versionNo) {
         if (empty($action)) {
             $action = dirname(base_url()) . (isset($_SERVER["REQUEST_URI"]) ? $_SERVER["REQUEST_URI"] : '');
         }

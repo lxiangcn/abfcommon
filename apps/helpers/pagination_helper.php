@@ -11,11 +11,8 @@ defined('BASEPATH') or die('No direct script access allowed');
  */
 if (!function_exists('pagination_link')) {
 
-    function pagination_link($uri, $total, $segment = 3, $page_no = 1) {
+    function pagination_link($uri, $total, $segment = 3, $page_no = 1, $limit = 10) {
         $CI = &get_instance();
-
-        // ambil jumlah per page dari database
-        $limit = 10;
 
         // hitung batas awal pengambilan data
         $offset = $limit * ($page_no - 1);
